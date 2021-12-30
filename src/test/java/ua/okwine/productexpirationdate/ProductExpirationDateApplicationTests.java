@@ -1,10 +1,10 @@
-package com.example.expr;
+package ua.okwine.productexpirationdate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ExprApplicationTests {
+class ProductExpirationDateApplicationTests {
 
     @Test
     void contextLoads() {

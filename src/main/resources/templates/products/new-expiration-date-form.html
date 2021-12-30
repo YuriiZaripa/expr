@@ -1,0 +1,77 @@
+<! DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Provider Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container" style="font-style: italic">
+    <h3>Новое поступление</h3>
+    <hr>
+
+    <form action="#" th:action="@{/products/save}"
+          th:object="${product}" method="POST">
+
+        <p class="h6 mb-6">Поставщик</p>
+        <div>
+            <select
+                    class="btn btn-primary dropdown-toggle"
+                    style="font-size: 22px; float: left; width: 33%"
+                    th:field="*{provider}" required>
+                <option th:each="providerTemp: ${providers}"
+                        th:text="${providerTemp.providerName}"
+                        th:value="${providerTemp.providerId}"
+                        style="font-size: 15px;">
+                </option>
+            </select>
+
+            <a th:href="@{/providers/showFormForAdd}" class="btn btn-success"
+               style="font-size: 20px; color: #4D4746; margin-left: 50px">
+                Добавить нового поставщика
+            </a>
+
+        </div>
+        <br>
+        <br>
+        <div style="width: 40%;">
+            <p class="h6 mb-6">Артикул</p>
+
+            <input type="hidden" th:field="*{id}">
+
+            <input type="text" th:field="*{vendorCode}" class="form-control mb-4 col-4"
+                   placeholder="УТП......." required>
+            <br>
+            <p class="h6 mb-6">Штрих-код</p>
+            <input type="text" th:field="*{barCode}" class="form-control mb-4 col-4">
+            <br>
+            <p class="h6 mb-6">Наименование</p>
+            <input type="text" th:field="*{productName}"
+                   class="form-control mb-4 col-4" required>
+            <br>
+            <p class="h6 mb-6">Дата производства</p>
+            <input type="date" th:field="*{produced}"
+                   class="form-control mb-4 col-4">
+            <br>
+            <p class="h6 mb-6">Дата окончания срока годности</p>
+            <input type="date" th:field="*{expirationDate}"
+                   class="form-control mb-4 col-4" required>
+            <br>
+            <br>
+            <button type="submit" class="btn  btn-success col-10">Сохранить</button>
+        </div>
+    </form>
+    <hr>
+    <a th:href="@{/products/main}">На главную</a>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+
+</body>
+</html>

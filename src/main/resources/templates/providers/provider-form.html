@@ -1,0 +1,49 @@
+<! DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Provider Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container" style="font-style: italic">
+        <h3>Создание нового поставщика</h3>
+        <hr>
+
+        <p class="h4 mb-4">Поставщик</p>
+        <form action="#" style="width: 40%;" th:action="@{/providers/save}"
+                         th:object="${provider}" method="POST">
+
+            <input type="hidden" th:field="*{providerId}">
+
+            <input type="text" th:field="*{providerName}"
+                   class="form-control mb-4 col-4" placeholder="Название" required>
+            <br>
+            <br>
+            <input type="text" th:field="*{returnCondition}"
+                   class="form-control mb-4 col-4"
+                   placeholder="Условия возврата">
+            <br>
+            <p class="h6 mb-6">Предупредить за количество дней</p>
+            <input type="number" th:field="*{advanceNotice}"
+                   class="form-control mb-4 col-4"
+                   placeholder="0">
+            <br>
+            <p class="h6 mb-6">Предусмотренная скидка</p>
+            <input type="number" th:field="*{discount}"
+                   class="form-control mb-4 col-4"
+                   placeholder="0">
+            <br>
+            <br>
+            <button type="submit" class="btn  btn-success col-10">Сохранить</button>
+        </form>
+        <hr>
+        <a th:href="@{/products/main}">На главную</a>
+    </div>
+
+</body>
+</html>

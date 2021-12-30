@@ -1,0 +1,67 @@
+<! DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Provider List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container" style="font-style: italic">
+    <h2>Поставщики товара</h2>
+    <br>
+    <a th:href="@{/products/main}">На главную</a>
+    <br>
+    <br>
+    <div>
+
+        <a th:href="@{/providers/showFormForAdd}"
+           class="btn btn-success" style="font-size: 20px; color: #4D4746" >
+            Добавить нового поставщика
+        </a>
+
+        <a th:href="@{/products/newExpDateForm}" class="btn btn-success"
+           style="float: right; font-size: 20px;color: #4D4746" >
+            Новое поступление
+        </a>
+    </div>
+    <hr>
+</div>
+
+<div class="container  mt-3">
+    <br>
+    <table class="table table-hover" style="font-style: italic;">
+        <thead class="thead-blue">
+            <th>Название</th>
+            <th>Условие возврата</th>
+            <th>Предупредить за дней</th>
+            <th>Предусмотренная скидка</th>
+            <th>Действия</th>
+        </thead>
+        <tbody>
+            <tr th:each="tempProvider : ${providers}">
+                <td th:text="${tempProvider.providerName}"/>
+                <td th:text="${tempProvider.returnCondition}"/>
+                <td th:text="${tempProvider.advanceNotice}"/>
+                <td th:text="${tempProvider.discount}"/>
+                <td>
+                    <a th:href="@{/providers/updateProviderForm(providerId=${tempProvider.providerId})}"
+                                class="btn btn-info btn-sm">
+                        Редактировать
+                    </a>
+                    <a th:href="@{/providers/delete(providerId=${tempProvider.providerId})}"
+                       class="btn btn-danger btn-sm"
+                       onclick="if (!(confirm('Удалив поставщика, ' +
+                        'Вы удалите все товары этого поставщика. ' +
+                        'Вы уверены что хотите удалить поставщика?'))) return false">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

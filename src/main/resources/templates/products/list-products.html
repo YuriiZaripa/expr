@@ -1,0 +1,67 @@
+<! DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Products List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container" style="font-style: italic">
+    <h2>Сроки годности на продукты</h2>
+    <br>
+    <a th:href="@{/products/main}">На главную</a>
+    <br>
+    <br>
+    <div>
+
+        <a th:href="@{/providers/showFormForAdd}"
+           class="btn btn-success" style="font-size: 20px; color: #4D4746" >
+            Добавить нового поставщика
+        </a>
+
+        <a th:href="@{/products/newExpDateForm}" class="btn btn-success"
+           style="float: right; font-size: 20px;color: #4D4746" >
+            Новое поступление
+        </a>
+    </div>
+    <hr>
+</div>
+
+<div class="container  mt-3">
+    <br>
+    <table class="table table-hover" style="font-style: italic;">
+        <thead class="thead-blue">
+        <th>Штрих-код</th>
+        <th>Наименование</th>
+        <th>Произведен</th>
+        <th>Годен до</th>
+        <th>Поставщик</th>
+        <th>Действия</th>
+        </thead>
+        <tbody style="font-size: 14px">
+        <tr th:each="tempProduct : ${products}">
+            <td th:text="${tempProduct.barCode}"/>
+            <td th:text="${tempProduct.productName}"/>
+            <td th:text="${#dates.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
+            <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+            <td th:text="${tempProduct.provider.providerName}"/>
+            <td>
+                <a th:href="@{/products/updateProductForm(id=${tempProduct.id})}"
+                   class="btn btn-info btn-sm" style="font-size: 10px">
+                    Изменить
+                </a>
+                <a th:href="@{/products/delete(id=${tempProduct.id})}"
+                   class="btn btn-danger btn-sm" style="font-size: 10px"
+                   onclick="if (!(confirm('Удалить этот срок годности?'))) return false">
+                    Удалить
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
