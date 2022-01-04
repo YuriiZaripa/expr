@@ -1,13 +1,11 @@
 package ua.okwine.productexpirationdate.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Provider;
-import ua.okwine.productexpirationdate.requestWrappers.ProductRequest;
 import ua.okwine.productexpirationdate.requestWrappers.ProductRequestWrapper;
 import ua.okwine.productexpirationdate.service.ProductService;
 
@@ -15,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,14 +21,13 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     @GetMapping("/main")
     public String startPage() {
-        return "startpage";
+        return "startPage";
     }
 
     @GetMapping("/newExpDateForm")
@@ -40,21 +36,21 @@ public class ProductController {
         model.addAttribute("providers", providers);
         model.addAttribute("product", new Product());
 
-        return "products/new-expiration-date-form";
+        return "products/newExpirationDateForm";
     }
 
-    @GetMapping("/list-products")
+    @GetMapping("/productsList")
     public String getAll(Model model) {
         List<Product> productList = productService.findAll();
 
         model.addAttribute("products", productList);
 
-        return "products/list-products";
+        return "products/productsList";
     }
 
     @GetMapping("/productUploadForm")
     public String providerUploadForm() {
-        return "products/product-upload-form";
+        return "products/productUploadForm";
     }
 
     @PostMapping("/importProductFromExcel")
@@ -70,13 +66,13 @@ public class ProductController {
             model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
                     " НЕ УДАЛОСЬ ИМПОРТИРОВАТЬ!");
 
-            return "providers/import-result";
+            return "providers/importResult";
         }
         model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
                 " успешно загружен.");
 
         productService.saveFromExcel(fullPath);
-        return "providers/import-result";
+        return "providers/importResult";
     }
 
     @PostMapping("/save")
@@ -95,7 +91,7 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("providers", providers);
 
-        return "products/new-expiration-date-form";
+        return "products/newExpirationDateForm";
     }
 
     @GetMapping("/settings")
@@ -108,7 +104,7 @@ public class ProductController {
     public String delete(@RequestParam("id") int id) {
         productService.deleteById(id);
 
-        return "redirect:/products/list-products";
+        return "redirect:/products/productsList";
     }
 
     @GetMapping("/dailyReport")
@@ -116,7 +112,7 @@ public class ProductController {
 
         model.addAttribute("products", productService.findAllToDaileReport());
 
-        return "products/daily-report";
+        return "products/dailyReport";
     }
 
     @PostMapping("/updateProducts")
@@ -124,7 +120,7 @@ public class ProductController {
             @ModelAttribute("products") ProductRequestWrapper products) {
         productService.productsProcessing(products);
 
-        return "products/report-result";
+        return "products/reportResult";
     }
 
     @PostMapping("/dailyReportDone")

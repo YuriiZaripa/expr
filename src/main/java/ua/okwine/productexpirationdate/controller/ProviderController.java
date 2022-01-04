@@ -1,6 +1,5 @@
 package ua.okwine.productexpirationdate.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,38 +19,37 @@ public class ProviderController {
 
     private final ProviderService providerService;
 
-    @Autowired
     public ProviderController(ProviderService providerService) {
         this.providerService = providerService;
     }
 
-    @GetMapping("/list-providers")
+    @GetMapping("/providersList")
     public String getAll(Model model) {
 
         model.addAttribute("providers", providerService.findAll());
 
-        return "providers/list-providers";
+        return "providers/providersList";
     }
 
     @GetMapping("/showFormForAdd")
-    public String showFormForAdd(Model model) {
+    public String getFormForAdd(Model model) {
         Provider provider = new Provider();
 
         model.addAttribute("provider", provider);
 
-        return "providers/provider-form";
+        return "providers/newProviderForm";
     }
 
     @PostMapping("/save")
     public String saveProvider(@ModelAttribute("provider") Provider provider) {
         providerService.save(provider);
 
-        return "redirect:list-providers";
+        return "redirect:providersList";
     }
 
     @GetMapping("/providerUploadForm")
-    public String providerUploadForm() {
-        return "providers/provider-upload-form";
+    public String getUploadForm() {
+        return "providers/providerUploadForm";
     }
 
     @PostMapping("/importProvidersFromExcel")
@@ -67,14 +65,14 @@ public class ProviderController {
             model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
                     " НЕ УДАЛОСЬ ИМПОРТИРОВАТЬ!");
 
-            return "providers/import-result";
+            return "providers/importResult";
         }
         model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
                 " успешно загружен.");
 
 
         providerService.saveFromExcel(fullPath);
-        return "providers/import-result";
+        return "providers/importResult";
     }
 
     @GetMapping("/updateProviderForm")
@@ -84,13 +82,13 @@ public class ProviderController {
 
         model.addAttribute("provider", provider);
 
-        return "providers/provider-form";
+        return "providers/newProviderForm";
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam("providerId") int id) {
+    public String deleteById(@RequestParam("providerId") int id) {
         providerService.deleteById(id);
 
-        return "redirect:/providers/list-providers";
+        return "redirect:providersList";
     }
 }
