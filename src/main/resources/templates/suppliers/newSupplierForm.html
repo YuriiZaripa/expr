@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Provider Form</title>
+    <title>Supplier Form</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -15,12 +15,12 @@
         <hr>
 
         <p class="h4 mb-4">Поставщик</p>
-        <form action="#" style="width: 40%;" th:action="@{/providers/save}"
-                         th:object="${provider}" method="POST">
+        <form action="#" style="width: 40%;" th:action="@{/suppliers/save}"
+                         th:object="${supplier}" method="POST">
 
-            <input type="hidden" th:field="*{providerId}">
+            <input type="hidden" th:field="*{supplierId}">
 
-            <input type="text" th:field="*{providerName}"
+            <input type="text" th:field="*{supplierName}"
                    class="form-control mb-4 col-4" placeholder="Название" required>
             <br>
             <br>

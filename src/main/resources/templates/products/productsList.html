@@ -17,7 +17,7 @@
     <br>
     <div>
 
-        <a th:href="@{/providers/showFormForAdd}"
+        <a th:href="@{/suppliers/showFormForAdd}"
            class="btn btn-success" style="font-size: 20px; color: #4D4746" >
             Добавить нового поставщика
         </a>
@@ -47,7 +47,7 @@
             <td th:text="${tempProduct.productName}"/>
             <td th:text="${#dates.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
             <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
-            <td th:text="${tempProduct.provider.providerName}"/>
+            <td th:text="${tempProduct.supplier.supplierName}"/>
             <td>
                 <a th:href="@{/products/updateProductForm(id=${tempProduct.id})}"
                    class="btn btn-info btn-sm" style="font-size: 10px">

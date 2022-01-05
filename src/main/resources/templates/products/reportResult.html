@@ -35,7 +35,7 @@
             <tbody style="font-size: 14px">
             <tr th:each="tempProduct, iterator : *{productRequestList1}">
 
-                <td th:text="${tempProduct.provider.providerName}"/>
+                <td th:text="${tempProduct.supplier.supplierName}"/>
                 <td th:text="${tempProduct.barCode}"/>
                 <td th:text="${tempProduct.productName}"/>
                 <td th:text="${tempProduct.quantity}"/>
@@ -61,7 +61,7 @@
             <tbody style="font-size: 14px">
             <tr th:each="tempProduct, iterator : *{productRequestList2}">
 
-                <td th:text="${tempProduct.provider.providerName}"/>
+                <td th:text="${tempProduct.supplier.supplierName}"/>
                 <td th:text="${tempProduct.barCode}"/>
                 <td th:text="${tempProduct.productName}"/>
                 <td th:text="${tempProduct.quantity}"/>
@@ -87,7 +87,7 @@
             <tbody style="font-size: 14px">
             <tr th:each="tempProduct, iterator : *{productRequestList3}">
 
-                <td th:text="${tempProduct.provider.providerName}"/>
+                <td th:text="${tempProduct.supplier.supplierName}"/>
                 <td th:text="${tempProduct.barCode}"/>
                 <td th:text="${tempProduct.productName}"/>
                 <td th:text="${tempProduct.quantity}"/>

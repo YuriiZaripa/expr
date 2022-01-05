@@ -22,15 +22,15 @@
             <select
                     class="btn btn-primary dropdown-toggle"
                     style="font-size: 22px; float: left; width: 33%"
-                    th:field="*{provider}" required>
-                <option th:each="providerTemp: ${providers}"
-                        th:text="${providerTemp.providerName}"
-                        th:value="${providerTemp.providerId}"
+                    th:field="*{supplier}" required>
+                <option th:each="providerTemp: ${suppliers}"
+                        th:text="${providerTemp.supplierName}"
+                        th:value="${providerTemp.supplierId}"
                         style="font-size: 15px;">
                 </option>
             </select>
 
-            <a th:href="@{/providers/showFormForAdd}" class="btn btn-success"
+            <a th:href="@{/suppliers/showFormForAdd}" class="btn btn-success"
                style="font-size: 20px; color: #4D4746; margin-left: 50px">
                 Добавить нового поставщика
             </a>

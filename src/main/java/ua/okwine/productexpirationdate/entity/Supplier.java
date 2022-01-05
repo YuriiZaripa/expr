@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Provider {
+public class Supplier { //
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "provider_id")
-    private int providerId;
+    @Column(name = "supplier_id") //
+    private int supplierId;
 
-    @Column(name = "provider_name")
-    private String providerName;
+    @Column(name = "supplier_name") //
+    private String supplierName;
 
     @Column(name = "return_condition")
     private String returnCondition;
@@ -26,45 +26,45 @@ public class Provider {
     @Column(name = "discount")
     private int discount;
 
-    @OneToMany(mappedBy = "provider",
+    @OneToMany(mappedBy = "supplier",
                 cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
 
-    public Provider() {
+    public Supplier() {
     }
 
-    public Provider(String providerName, String returnCondition, int advanceNotice,
+    public Supplier(String supplierName, String returnCondition, int advanceNotice,
                     int discount) {
-        this.providerName = providerName;
+        this.supplierName = supplierName;
         this.returnCondition = returnCondition;
         this.advanceNotice = advanceNotice;
         this.discount = discount;
     }
 
-    public Provider(int providerId, String providerName,
+    public Supplier(int supplierId, String supplierName,
                     String returnCondition, int advanceNotice, int discount, List<Product> products) {
-        this.providerId = providerId;
-        this.providerName = providerName;
+        this.supplierId = supplierId;
+        this.supplierName = supplierName;
         this.returnCondition = returnCondition;
         this.advanceNotice = advanceNotice;
         this.discount = discount;
         this.products = products;
     }
 
-    public int getProviderId() {
-        return providerId;
+    public int getSupplierId() {
+        return supplierId;
     }
 
-    public void setProviderId(int providerId) {
-        this.providerId = providerId;
+    public void setSupplierId(int supplierId) {
+        this.supplierId = supplierId;
     }
 
-    public String getProviderName() {
-        return providerName;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setProviderName(String providerName) {
-        this.providerName = providerName;
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
     public String getReturnCondition() {
@@ -95,12 +95,11 @@ public class Provider {
         return products;
     }
 
-    public void setProduct(Product product) {
-        products.add(product);
-    }
+//    public void addProduct(Product product) {
+//        this.products.add(product);
+//    }
 
     public void setProducts(List<Product> products) {
-
         this.products = products;
     }
 }

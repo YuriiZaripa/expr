@@ -1,10 +1,9 @@
 package ua.okwine.productexpirationdate.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.okwine.productexpirationdate.dao.ProductRepository;
 import ua.okwine.productexpirationdate.entity.Product;
-import ua.okwine.productexpirationdate.entity.Provider;
+import ua.okwine.productexpirationdate.entity.Supplier;
 import ua.okwine.productexpirationdate.excelImport.ExcelImport;
 import ua.okwine.productexpirationdate.requestWrappers.ProductRequest;
 import ua.okwine.productexpirationdate.requestWrappers.ProductRequestWrapper;
@@ -15,19 +14,19 @@ import java.util.*;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final ProviderService providerService;
+    private final SupplierService supplierService;
 
-    public ProductService(ProductRepository productRepository, ProviderService providerService) {
+    public ProductService(ProductRepository productRepository, SupplierService supplierService) {
         this.productRepository = productRepository;
-        this.providerService = providerService;
+        this.supplierService = supplierService;
     }
 
     public List<Product> findAll() {
         return productRepository.findAll();
     }
 
-    public List<Provider> findAllProviders() {
-        return providerService.findAll();
+    public List<Supplier> findAllSuppliers() {
+        return supplierService.findAll();
     }
 
     public Product findById(int id) {
@@ -63,7 +62,7 @@ public class ProductService {
     }
 
     public void saveFromExcel(String path) {
-        Map<String, Provider> providerMap = providerService.findAllByName();
+        Map<String, Supplier> providerMap = supplierService.findAllByName();
         List<Product> productList = ExcelImport.excelProductImport(path, providerMap);
 
         productRepository.saveAll(productList);

@@ -1,7 +1,7 @@
 <! DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Provider List</title>
+    <title>Suppliers List</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -17,7 +17,7 @@
     <br>
     <div>
 
-        <a th:href="@{/providers/showFormForAdd}"
+        <a th:href="@{/suppliers/showFormForAdd}"
            class="btn btn-success" style="font-size: 20px; color: #4D4746" >
             Добавить нового поставщика
         </a>
@@ -41,17 +41,17 @@
             <th>Действия</th>
         </thead>
         <tbody>
-            <tr th:each="tempProvider : ${providers}">
-                <td th:text="${tempProvider.providerName}"/>
-                <td th:text="${tempProvider.returnCondition}"/>
-                <td th:text="${tempProvider.advanceNotice}"/>
-                <td th:text="${tempProvider.discount}"/>
+            <tr th:each="tempSupplier : ${suppliers}">
+                <td th:text="${tempSupplier.supplierName}"/>
+                <td th:text="${tempSupplier.returnCondition}"/>
+                <td th:text="${tempSupplier.advanceNotice}"/>
+                <td th:text="${tempSupplier.discount}"/>
                 <td>
-                    <a th:href="@{/providers/updateProviderForm(providerId=${tempProvider.providerId})}"
+                    <a th:href="@{/suppliers/updateSupplierForm(providerId=${tempSupplier.supplierId})}"
                                 class="btn btn-info btn-sm">
                         Редактировать
                     </a>
-                    <a th:href="@{/providers/delete(providerId=${tempProvider.providerId})}"
+                    <a th:href="@{/suppliers/delete(providerId=${tempSupplier.supplierId})}"
                        class="btn btn-danger btn-sm"
                        onclick="if (!(confirm('Удалив поставщика, ' +
                         'Вы удалите все товары этого поставщика. ' +

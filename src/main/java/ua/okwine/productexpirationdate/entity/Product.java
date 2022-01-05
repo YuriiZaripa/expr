@@ -33,30 +33,30 @@ public class Product {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "provider_id")
-    private Provider provider;
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
 
     public Product() {
     }
 
     public Product(String vendorCode, String barCode, String productName,
-                   Date produced, Date expirationDate, Provider provider) {
+                   Date produced, Date expirationDate, Supplier supplier) {
         this.vendorCode = vendorCode;
         this.barCode = barCode;
         this.productName = productName;
         this.produced = produced;
         this.expirationDate = expirationDate;
-        this.provider = provider;
+        this.supplier = supplier;
     }
 
     public Product(int id, String vendorCode, String productName,
-                   Date produce, Date expirationDate, Provider provider) {
+                   Date produce, Date expirationDate, Supplier supplier) {
         this.id = id;
         this.vendorCode = vendorCode;
         this.productName = productName;
         this.produced = produce;
         this.expirationDate = expirationDate;
-        this.provider = provider;
+        this.supplier = supplier;
     }
 
     public int getId() {
@@ -107,11 +107,11 @@ public class Product {
         this.expirationDate = expirationDate;
     }
 
-    public Provider getProvider() {
-        return provider;
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public void setProvider(Provider provider) {
-        this.provider = provider;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 }

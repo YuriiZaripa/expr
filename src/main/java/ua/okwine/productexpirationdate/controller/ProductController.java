@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ua.okwine.productexpirationdate.entity.Product;
-import ua.okwine.productexpirationdate.entity.Provider;
+import ua.okwine.productexpirationdate.entity.Supplier;
 import ua.okwine.productexpirationdate.requestWrappers.ProductRequestWrapper;
 import ua.okwine.productexpirationdate.service.ProductService;
 
@@ -32,8 +32,8 @@ public class ProductController {
 
     @GetMapping("/newExpDateForm")
     public String getFormForAdd(Model model) {
-        List<Provider> providers = productService.findAllProviders();
-        model.addAttribute("providers", providers);
+        List<Supplier> suppliers = productService.findAllSuppliers();
+        model.addAttribute("suppliers", suppliers);
         model.addAttribute("product", new Product());
 
         return "products/newExpirationDateForm";
@@ -66,13 +66,13 @@ public class ProductController {
             model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
                     " НЕ УДАЛОСЬ ИМПОРТИРОВАТЬ!");
 
-            return "providers/importResult";
+            return "suppliers/importResult";
         }
         model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
                 " успешно загружен.");
 
         productService.saveFromExcel(fullPath);
-        return "providers/importResult";
+        return "suppliers/importResult";
     }
 
     @PostMapping("/save")
@@ -86,10 +86,10 @@ public class ProductController {
     public String updateProduct(@RequestParam("id") int id,
                                 Model model) {
         Product product = productService.findById(id);
-        List<Provider> providers = productService.findAllProviders();
+        List<Supplier> suppliers = productService.findAllSuppliers();
 
         model.addAttribute("product", product);
-        model.addAttribute("providers", providers);
+        model.addAttribute("suppliers", suppliers);
 
         return "products/newExpirationDateForm";
     }

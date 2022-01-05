@@ -1,7 +1,7 @@
 package ua.okwine.productexpirationdate.requestWrappers;
 
 import ua.okwine.productexpirationdate.entity.Product;
-import ua.okwine.productexpirationdate.entity.Provider;
+import ua.okwine.productexpirationdate.entity.Supplier;
 
 import java.util.Date;
 
@@ -15,8 +15,8 @@ public class ProductRequest {
     }
 
     public ProductRequest(int id, String vendorCode, String productName,
-                   Date produce, Date expirationDate, Provider provider, int quantity) {
-        this.product = new Product(id, vendorCode, productName, produce, expirationDate, provider);
+                          Date produce, Date expirationDate, Supplier supplier, int quantity) {
+        this.product = new Product(id, vendorCode, productName, produce, expirationDate, supplier);
         this.quantity = quantity;
     }
 
@@ -72,12 +72,12 @@ public class ProductRequest {
         product.setExpirationDate(expirationDate);
     }
 
-    public Provider getProvider() {
-        return product.getProvider();
+    public Supplier getSupplier() {
+        return product.getSupplier();
     }
 
-    public void setProvider(Provider provider) {
-        product.setProvider(provider);
+    public void setSupplier(Supplier supplier) {
+        product.setSupplier(supplier);
     }
 
     public Product getProduct() {

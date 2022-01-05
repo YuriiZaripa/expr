@@ -46,7 +46,7 @@
                 </td>
                 <td th:text="${#dates.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
                 <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
-                <td th:text="${tempProduct.provider.providerName}"/>
+                <td th:text="${tempProduct.supplier.supplierName}"/>
                 <td>
                     <a th:href="@{/products/updateProductForm(id=${tempProduct.product.id})}"
                        class="btn btn-info btn-sm" style="font-size: 12px">
@@ -83,7 +83,7 @@
                 </td>
                 <td th:text="${#dates.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
                 <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
-                <td th:text="${tempProduct.provider.providerName}"/>
+                <td th:text="${tempProduct.supplier.supplierName}"/>
                 <td>
                     <a th:href="@{/products/updateProductForm(id=${tempProduct.product.id})}"
                        class="btn btn-info btn-sm" style="font-size: 12px">
@@ -118,7 +118,7 @@
                 </td>
                 <td th:text="${#dates.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
                 <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
-                <td th:text="${tempProduct.provider.providerName}"/>
+                <td th:text="${tempProduct.supplier.supplierName}"/>
                 <td>
                     <a th:href="@{/products/updateProductForm(id=${tempProduct.product.id})}"
                        class="btn btn-info btn-sm" style="font-size: 12px">

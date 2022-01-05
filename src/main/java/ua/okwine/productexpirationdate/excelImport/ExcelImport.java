@@ -1,25 +1,19 @@
 package ua.okwine.productexpirationdate.excelImport;
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.format.annotation.DateTimeFormat;
 import ua.okwine.productexpirationdate.entity.Product;
-import ua.okwine.productexpirationdate.entity.Provider;
+import ua.okwine.productexpirationdate.entity.Supplier;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.io.FileInputStream;
 import java.util.*;
 
 public class ExcelImport {
-    public static List<Provider> excelProviderImport(String excelFilePath) {
+    public static List<Supplier> excelProviderImport(String excelFilePath) {
 
-        List <Provider> providerList = new ArrayList<>();
+        List <Supplier> supplierList = new ArrayList<>();
 
         try(FileInputStream inputStream = new FileInputStream(excelFilePath)) {
             Workbook workbook = new XSSFWorkbook(inputStream);
@@ -35,17 +29,17 @@ public class ExcelImport {
                 int advanceNotice = (int)nextRow.getCell(2).getNumericCellValue();
                 int discount = (int)nextRow.getCell(3).getNumericCellValue();
 
-                providerList.add(new Provider(providerName, returnCondition, advanceNotice, discount));
+                supplierList.add(new Supplier(providerName, returnCondition, advanceNotice, discount));
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return  providerList;
+        return supplierList;
     }
 
-    public static List<Product> excelProductImport(String excelFilePath, Map<String, Provider> providerMap) {
+    public static List<Product> excelProductImport(String excelFilePath, Map<String, Supplier> providerMap) {
         List <Product> productList = new ArrayList<>();
 
         try(FileInputStream inputStream = new FileInputStream(excelFilePath)) {
@@ -64,10 +58,10 @@ public class ExcelImport {
                 String productName = nextRow.getCell(3).getStringCellValue();
                 Date produced = nextRow.getCell(4).getDateCellValue();
                 Date expirationDate = nextRow.getCell(5).getDateCellValue();;
-                Provider provider = providerMap.get(nextRow.getCell(6).getStringCellValue());
+                Supplier supplier = providerMap.get(nextRow.getCell(6).getStringCellValue());
 
                 productList.add(new Product(vendorCode, barCode, productName,
-                        produced, expirationDate, provider));
+                        produced, expirationDate, supplier));
             }
         } catch (Exception e) {
             e.printStackTrace();

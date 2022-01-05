@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ua.okwine.productexpirationdate.entity.Provider;
-import ua.okwine.productexpirationdate.service.ProviderService;
+import ua.okwine.productexpirationdate.entity.Supplier;
+import ua.okwine.productexpirationdate.service.SupplierService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,45 +14,45 @@ import java.nio.file.Paths;
 
 
 @Controller
-@RequestMapping("/providers")
-public class ProviderController {
+@RequestMapping("/suppliers")
+public class SupplierController {
 
-    private final ProviderService providerService;
+    private final SupplierService supplierService;
 
-    public ProviderController(ProviderService providerService) {
-        this.providerService = providerService;
+    public SupplierController(SupplierService supplierService) {
+        this.supplierService = supplierService;
     }
 
-    @GetMapping("/providersList")
+    @GetMapping("/suppliersList")
     public String getAll(Model model) {
 
-        model.addAttribute("providers", providerService.findAll());
+        model.addAttribute("suppliers", supplierService.findAll());
 
-        return "providers/providersList";
+        return "suppliers/suppliersList";
     }
 
     @GetMapping("/showFormForAdd")
     public String getFormForAdd(Model model) {
-        Provider provider = new Provider();
+        Supplier supplier = new Supplier();
 
-        model.addAttribute("provider", provider);
+        model.addAttribute("provider", supplier);
 
-        return "providers/newProviderForm";
+        return "suppliers/newSupplierForm";
     }
 
     @PostMapping("/save")
-    public String saveProvider(@ModelAttribute("provider") Provider provider) {
-        providerService.save(provider);
+    public String saveProvider(@ModelAttribute("provider") Supplier supplier) {
+        supplierService.save(supplier);
 
-        return "redirect:providersList";
+        return "redirect:suppliersList";
     }
 
-    @GetMapping("/providerUploadForm")
+    @GetMapping("/supplierUploadForm")
     public String getUploadForm() {
-        return "providers/providerUploadForm";
+        return "suppliers/supplierUploadForm";
     }
 
-    @PostMapping("/importProvidersFromExcel")
+    @PostMapping("/importSuppliersFromExcel")
     public String importExcel(Model model, @RequestParam("file") MultipartFile file) {
         String uploadDirectoryPath = "src/main/resources/temp_files";
         String fullPath = "src/main/resources/temp_files/" + file.getOriginalFilename();
@@ -65,30 +65,30 @@ public class ProviderController {
             model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
                     " НЕ УДАЛОСЬ ИМПОРТИРОВАТЬ!");
 
-            return "providers/importResult";
+            return "suppliers/importResult";
         }
         model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
                 " успешно загружен.");
 
 
-        providerService.saveFromExcel(fullPath);
-        return "providers/importResult";
+        supplierService.saveFromExcel(fullPath);
+        return "suppliers/importResult";
     }
 
-    @GetMapping("/updateProviderForm")
+    @GetMapping("/updateSupplierForm")
     public String updateProvider(@RequestParam("providerId") int id,
                                  Model model) {
-        Provider provider = providerService.findById(id);
+        Supplier supplier = supplierService.findById(id);
 
-        model.addAttribute("provider", provider);
+        model.addAttribute("supplier", supplier);
 
-        return "providers/newProviderForm";
+        return "suppliers/newSupplierForm";
     }
 
     @GetMapping("/delete")
     public String deleteById(@RequestParam("providerId") int id) {
-        providerService.deleteById(id);
+        supplierService.deleteById(id);
 
-        return "redirect:providersList";
+        return "redirect:suppliersList";
     }
 }

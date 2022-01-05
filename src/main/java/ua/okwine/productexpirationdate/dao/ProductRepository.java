@@ -11,9 +11,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query("select p from Product p " +
             "where p.expirationDate <= current_date " +
-            "and p.provider in (" +
-            "select pr.providerId from Provider pr " +
-            "where pr.returnCondition = :type)" +
-            "order by p.provider.providerName")
+            "and p.supplier in (" +
+            "select sp.supplierId from Supplier sp " +
+            "where sp.returnCondition = :type)" +
+            "order by p.supplier.supplierName")
     public List<Product> findProductForDailyReportByType(@Param("type") String type);
 }
