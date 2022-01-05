@@ -26,12 +26,12 @@ public class ProductController {
     }
 
     @GetMapping("/main")
-    public String startPage() {
+    public String getStartPage() {
         return "startPage";
     }
 
     @GetMapping("/newExpDateForm")
-    public String showFormForAdd(Model model) {
+    public String getFormForAdd(Model model) {
         List<Provider> providers = productService.findAllProviders();
         model.addAttribute("providers", providers);
         model.addAttribute("product", new Product());
@@ -49,16 +49,16 @@ public class ProductController {
     }
 
     @GetMapping("/productUploadForm")
-    public String providerUploadForm() {
+    public String getProviderUploadForm() {
         return "products/productUploadForm";
     }
 
     @PostMapping("/importProductFromExcel")
     public String importExcel(Model model, @RequestParam("file") MultipartFile file) {
-        String uploadDirectory = "src/main/resources/temp_files";
+        String uploadDirectoryPath = "src/main/resources/temp_files";
         String fullPath = "src/main/resources/temp_files/" + file.getOriginalFilename();
 
-        Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+        Path fileNameAndPath = Paths.get(uploadDirectoryPath, file.getOriginalFilename());
         try {
             Files.write(fileNameAndPath, file.getBytes());
         } catch (IOException e) {
@@ -101,7 +101,7 @@ public class ProductController {
 
 
     @GetMapping("/delete")
-    public String delete(@RequestParam("id") int id) {
+    public String deleteById(@RequestParam("id") int id) {
         productService.deleteById(id);
 
         return "redirect:/products/productsList";
@@ -116,7 +116,7 @@ public class ProductController {
     }
 
     @PostMapping("/updateProducts")
-    public String productsProcessing(
+    public String processing(
             @ModelAttribute("products") ProductRequestWrapper products) {
         productService.productsProcessing(products);
 

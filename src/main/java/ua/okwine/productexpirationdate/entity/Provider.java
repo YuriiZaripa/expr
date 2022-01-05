@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 public class Provider {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "provider_id")
@@ -101,16 +102,5 @@ public class Provider {
     public void setProducts(List<Product> products) {
 
         this.products = products;
-    }
-
-    @Override
-    public String toString() {
-        return "Provider{" +
-                "providerId=" + providerId +
-                ", providerName='" + providerName + '\'' +
-                ", returnCondition='" + returnCondition + '\'' +
-                ", advanceNotice=" + advanceNotice +
-                ", discount=" + discount +
-                '}';
     }
 }

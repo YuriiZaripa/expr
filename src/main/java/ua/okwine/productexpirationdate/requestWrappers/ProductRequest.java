@@ -6,6 +6,7 @@ import ua.okwine.productexpirationdate.entity.Provider;
 import java.util.Date;
 
 public class ProductRequest {
+
     private Product product;
     private double quantity = 0;
 

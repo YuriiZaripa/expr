@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRequestWrapper {
+
     private List<ProductRequest> productRequestList1 = new ArrayList<>();
     private List<ProductRequest> productRequestList2 = new ArrayList<>();
     private List<ProductRequest> productRequestList3 = new ArrayList<>();

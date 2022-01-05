@@ -53,11 +53,11 @@ public class ProviderController {
     }
 
     @PostMapping("/importProvidersFromExcel")
-    public String importExcel(Model model, @RequestParam("file")MultipartFile file) {
-        String uploadDirectory = "src/main/resources/temp_files";
+    public String importExcel(Model model, @RequestParam("file") MultipartFile file) {
+        String uploadDirectoryPath = "src/main/resources/temp_files";
         String fullPath = "src/main/resources/temp_files/" + file.getOriginalFilename();
 
-        Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+        Path fileNameAndPath = Paths.get(uploadDirectoryPath, file.getOriginalFilename());
         try {
             Files.write(fileNameAndPath, file.getBytes());
         } catch (IOException e) {
@@ -77,7 +77,7 @@ public class ProviderController {
 
     @GetMapping("/updateProviderForm")
     public String updateProvider(@RequestParam("providerId") int id,
-                               Model model) {
+                                 Model model) {
         Provider provider = providerService.findById(id);
 
         model.addAttribute("provider", provider);
