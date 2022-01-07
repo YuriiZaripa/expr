@@ -5,14 +5,15 @@ package ua.okwine.productexpirationdate.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Supplier { //
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "supplier_id") //
-    private int supplierId;
+    private UUID supplierId;
 
     @Column(name = "supplier_name") //
     private String supplierName;
@@ -41,7 +42,7 @@ public class Supplier { //
         this.discount = discount;
     }
 
-    public Supplier(int supplierId, String supplierName,
+    public Supplier(UUID supplierId, String supplierName,
                     String returnCondition, int advanceNotice, int discount, List<Product> products) {
         this.supplierId = supplierId;
         this.supplierName = supplierName;
@@ -51,11 +52,11 @@ public class Supplier { //
         this.products = products;
     }
 
-    public int getSupplierId() {
+    public UUID getSupplierId() {
         return supplierId;
     }
 
-    public void setSupplierId(int supplierId) {
+    public void setSupplierId(UUID supplierId) {
         this.supplierId = supplierId;
     }
 
@@ -95,9 +96,9 @@ public class Supplier { //
         return products;
     }
 
-//    public void addProduct(Product product) {
-//        this.products.add(product);
-//    }
+    public void addProduct(Product product) {
+        this.products.add(product);
+    }
 
     public void setProducts(List<Product> products) {
         this.products = products;

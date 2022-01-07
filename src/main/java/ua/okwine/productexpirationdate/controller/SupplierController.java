@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 
 @Controller
@@ -35,7 +36,7 @@ public class SupplierController {
     public String getFormForAdd(Model model) {
         Supplier supplier = new Supplier();
 
-        model.addAttribute("provider", supplier);
+        model.addAttribute("supplier", supplier);
 
         return "suppliers/newSupplierForm";
     }
@@ -76,7 +77,7 @@ public class SupplierController {
     }
 
     @GetMapping("/updateSupplierForm")
-    public String updateProvider(@RequestParam("providerId") int id,
+    public String updateProvider(@RequestParam("supplierId") UUID id,
                                  Model model) {
         Supplier supplier = supplierService.findById(id);
 
@@ -86,7 +87,7 @@ public class SupplierController {
     }
 
     @GetMapping("/delete")
-    public String deleteById(@RequestParam("providerId") int id) {
+    public String deleteById(@RequestParam("supplierId") UUID id) {
         supplierService.deleteById(id);
 
         return "redirect:suppliersList";

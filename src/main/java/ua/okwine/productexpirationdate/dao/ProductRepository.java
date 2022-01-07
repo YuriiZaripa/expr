@@ -6,8 +6,9 @@ import org.springframework.data.repository.query.Param;
 import ua.okwine.productexpirationdate.entity.Product;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     @Query("select p from Product p " +
             "where p.expirationDate <= current_date " +

@@ -47,11 +47,11 @@
                 <td th:text="${tempSupplier.advanceNotice}"/>
                 <td th:text="${tempSupplier.discount}"/>
                 <td>
-                    <a th:href="@{/suppliers/updateSupplierForm(providerId=${tempSupplier.supplierId})}"
+                    <a th:href="@{/suppliers/updateSupplierForm(supplierId=${tempSupplier.supplierId})}"
                                 class="btn btn-info btn-sm">
                         Редактировать
                     </a>
-                    <a th:href="@{/suppliers/delete(providerId=${tempSupplier.supplierId})}"
+                    <a th:href="@{/suppliers/delete(supplierId=${tempSupplier.supplierId})}"
                        class="btn btn-danger btn-sm"
                        onclick="if (!(confirm('Удалив поставщика, ' +
                         'Вы удалите все товары этого поставщика. ' +

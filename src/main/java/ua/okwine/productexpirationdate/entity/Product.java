@@ -4,15 +4,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name="product")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id")
-    private int id;
+    private UUID id;
 
     @Column(name = "vendor_code")
     private String vendorCode;
@@ -49,7 +50,7 @@ public class Product {
         this.supplier = supplier;
     }
 
-    public Product(int id, String vendorCode, String productName,
+    public Product(UUID id, String vendorCode, String productName,
                    Date produce, Date expirationDate, Supplier supplier) {
         this.id = id;
         this.vendorCode = vendorCode;
@@ -59,11 +60,11 @@ public class Product {
         this.supplier = supplier;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

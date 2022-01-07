@@ -8,6 +8,7 @@ import ua.okwine.productexpirationdate.excelImport.ExcelImport;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class SupplierService {
@@ -27,7 +28,7 @@ public class SupplierService {
         supplierRepository.saveAll(supplierList);
     }
 
-    public Supplier findById(int id) {
+    public Supplier findById(UUID id) {
         return supplierRepository.getById(id);
     }
 
@@ -46,7 +47,7 @@ public class SupplierService {
         return suppliersByName;
     }
 
-    public void deleteById(int id) {
+    public void deleteById(UUID id) {
         supplierRepository.deleteById(id);
     }
 }

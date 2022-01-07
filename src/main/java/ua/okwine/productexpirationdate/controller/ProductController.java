@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/products")
@@ -83,7 +84,7 @@ public class ProductController {
     }
 
     @GetMapping("/updateProductForm")
-    public String updateProduct(@RequestParam("id") int id,
+    public String updateProduct(@RequestParam("id") UUID id,
                                 Model model) {
         Product product = productService.findById(id);
         List<Supplier> suppliers = productService.findAllSuppliers();
@@ -101,7 +102,7 @@ public class ProductController {
 
 
     @GetMapping("/delete")
-    public String deleteById(@RequestParam("id") int id) {
+    public String deleteById(@RequestParam("id") UUID id) {
         productService.deleteById(id);
 
         return "redirect:/products/productsList";

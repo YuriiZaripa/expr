@@ -4,6 +4,7 @@ import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class ProductRequest {
 
@@ -14,7 +15,7 @@ public class ProductRequest {
         this.product = new Product();
     }
 
-    public ProductRequest(int id, String vendorCode, String productName,
+    public ProductRequest(UUID id, String vendorCode, String productName,
                           Date produce, Date expirationDate, Supplier supplier, int quantity) {
         this.product = new Product(id, vendorCode, productName, produce, expirationDate, supplier);
         this.quantity = quantity;
@@ -24,11 +25,11 @@ public class ProductRequest {
         this.product = product;
     }
 
-    public int getId() {
+    public UUID getId() {
         return product.getId();
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         product.setId(id);
     }
 

@@ -29,7 +29,7 @@ public class ProductService {
         return supplierService.findAll();
     }
 
-    public Product findById(int id) {
+    public Product findById(UUID id) {
         return productRepository.getById(id);
     }
 
@@ -68,12 +68,12 @@ public class ProductService {
         productRepository.saveAll(productList);
     }
 
-    public void deleteById(int id) {
+    public void deleteById(UUID id) {
         productRepository.deleteById(id);
     }
 
     public void deleteAll(ProductRequestWrapper requestWrapper) {
-        List<Integer> productsId = removeAllRequests(requestWrapper.getProductRequestList1());
+        List<UUID> productsId = removeAllRequests(requestWrapper.getProductRequestList1());
         productsId.addAll(removeAllRequests(requestWrapper.getProductRequestList2()));
         productsId.addAll(removeAllRequests(requestWrapper.getProductRequestList3()));
 
@@ -81,15 +81,15 @@ public class ProductService {
     }
 
     public void productsProcessing(ProductRequestWrapper requestWrapper) {
-        List<Integer> productsId = removeZeroQuantity(requestWrapper.getProductRequestList1());
+        List<UUID> productsId = removeZeroQuantity(requestWrapper.getProductRequestList1());
         productsId.addAll(removeZeroQuantity(requestWrapper.getProductRequestList2()));
         productsId.addAll(removeZeroQuantity(requestWrapper.getProductRequestList3()));
 
         productRepository.deleteAllById(productsId);
     }
 
-    private List<Integer> removeZeroQuantity(List<ProductRequest> products) {
-        List<Integer> productsId = new ArrayList<>();
+    private List<UUID> removeZeroQuantity(List<ProductRequest> products) {
+        List<UUID> productsId = new ArrayList<>();
 
         ListIterator<ProductRequest> productsIterator = products.listIterator();
         while(productsIterator.hasNext()) {
@@ -106,8 +106,8 @@ public class ProductService {
 
 
 
-    private List<Integer> removeAllRequests(List<ProductRequest> products) {
-        List<Integer> productsId = new ArrayList<>();
+    private List<UUID> removeAllRequests(List<ProductRequest> products) {
+        List<UUID> productsId = new ArrayList<>();
 
         ListIterator<ProductRequest> productsIterator = products.listIterator();
         while(productsIterator.hasNext()) {
