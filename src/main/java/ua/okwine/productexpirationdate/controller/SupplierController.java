@@ -41,11 +41,6 @@ public class SupplierController {
         return "redirect:suppliersList";
     }
 
-    @GetMapping("/supplierUploadForm")
-    public String getUploadForm() {
-        return "suppliers/supplierUploadForm";
-    }
-
     @GetMapping("/updateSupplierForm")
     public String updateProvider(@RequestParam("supplierId") UUID id,
                                  Model model) {

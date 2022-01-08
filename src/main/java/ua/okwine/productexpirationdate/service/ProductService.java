@@ -29,28 +29,8 @@ public class ProductService {
         return productRepository.getById(id);
     }
 
-    public ProductRequestWrapper findAllToDaileReport() {
-        List<Product> products1 = productRepository.findProductForDailyReportByType("не забирают возвраты");
-        List<Product> products2 = productRepository.findProductForDailyReportByType("физобмен");
-        List<Product> products3 = productRepository.findProductForDailyReportByType("");
-
-        ProductRequestWrapper productRequestWrapper = new ProductRequestWrapper(
-               toProductRequest(products1),
-               toProductRequest(products2),
-               toProductRequest(products3)
-        );
-
-        return productRequestWrapper;
-    }
-
-    private List<ProductRequest> toProductRequest(List<Product> products) {
-        List<ProductRequest> productRequests = new ArrayList<>();
-
-        for (Product product : products) {
-            productRequests.add(new ProductRequest(product));
-        }
-
-        return productRequests;
+    public List<Product> findAllByAdvanceNotice(String advanceNotice) {
+        return productRepository.findAllByAdvanceNotice(advanceNotice);
     }
 
     public void save(Product product) {
@@ -65,51 +45,5 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public void deleteAll(ProductRequestWrapper requestWrapper) {
-        List<UUID> productsId = removeAllRequests(requestWrapper.getProductRequestList1());
-        productsId.addAll(removeAllRequests(requestWrapper.getProductRequestList2()));
-        productsId.addAll(removeAllRequests(requestWrapper.getProductRequestList3()));
-
-        productRepository.deleteAllById(productsId);
-    }
-
-    public void productsProcessing(ProductRequestWrapper requestWrapper) {
-        List<UUID> productsId = removeZeroQuantity(requestWrapper.getProductRequestList1());
-        productsId.addAll(removeZeroQuantity(requestWrapper.getProductRequestList2()));
-        productsId.addAll(removeZeroQuantity(requestWrapper.getProductRequestList3()));
-
-        productRepository.deleteAllById(productsId);
-    }
-
-    private List<UUID> removeZeroQuantity(List<ProductRequest> products) {
-        List<UUID> productsId = new ArrayList<>();
-
-        ListIterator<ProductRequest> productsIterator = products.listIterator();
-        while(productsIterator.hasNext()) {
-            ProductRequest product = productsIterator.next();
-
-            if(product.getQuantity() == 0) {
-                productsId.add(product.getId());
-                productsIterator.remove();
-            }
-        }
-
-        return  productsId;
-    }
-
-
-
-    private List<UUID> removeAllRequests(List<ProductRequest> products) {
-        List<UUID> productsId = new ArrayList<>();
-
-        ListIterator<ProductRequest> productsIterator = products.listIterator();
-        while(productsIterator.hasNext()) {
-            ProductRequest product = productsIterator.next();
-            productsId.add(product.getId());
-            productsIterator.remove();
-        }
-
-        return  productsId;
-    }
-
+    public void deleteAllById(List<UUID> id) { productRepository.deleteAllById(id); }
 }

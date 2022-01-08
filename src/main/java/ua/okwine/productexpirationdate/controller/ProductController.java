@@ -41,11 +41,6 @@ public class ProductController {
         return "products/productsList";
     }
 
-    @GetMapping("/productUploadForm")
-    public String getProviderUploadForm() {
-        return "products/productUploadForm";
-    }
-
     @PostMapping("/save")
     public String saveProduct(@ModelAttribute("product") Product product) {
         productService.save(product);
@@ -65,39 +60,11 @@ public class ProductController {
         return "products/newExpirationDateForm";
     }
 
-    @GetMapping("/settings")
-    public String getSettings() {
-        return "settings";
-    }
-
 
     @GetMapping("/delete")
     public String deleteById(@RequestParam("id") UUID id) {
         productService.deleteById(id);
 
         return "redirect:/products/productsList";
-    }
-
-    @GetMapping("/dailyReport")
-    public String getDailyReport(Model model) {
-
-        model.addAttribute("products", productService.findAllToDaileReport());
-
-        return "products/dailyReport";
-    }
-
-    @PostMapping("/updateProducts")
-    public String processing(
-            @ModelAttribute("products") ProductRequestWrapper products) {
-        productService.productsProcessing(products);
-
-        return "products/reportResult";
-    }
-
-    @PostMapping("/dailyReportDone")
-    public String deleteProducts(@ModelAttribute("products") ProductRequestWrapper products) {
-        productService.deleteAll(products);
-
-        return "redirect:/products/main";
     }
 }

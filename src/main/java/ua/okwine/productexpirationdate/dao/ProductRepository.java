@@ -16,5 +16,5 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
             "select sp.supplierId from Supplier sp " +
             "where sp.returnCondition = :type)" +
             "order by p.supplier.supplierName")
-    public List<Product> findProductForDailyReportByType(@Param("type") String type);
+    public List<Product> findAllByAdvanceNotice(@Param("type") String type);
 }
