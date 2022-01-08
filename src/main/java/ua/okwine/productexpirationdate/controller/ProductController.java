@@ -1,30 +1,22 @@
 package ua.okwine.productexpirationdate.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
 import ua.okwine.productexpirationdate.requestWrappers.ProductRequestWrapper;
 import ua.okwine.productexpirationdate.service.ProductService;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/products")
+@AllArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping("/main")
     public String getStartPage() {
@@ -52,28 +44,6 @@ public class ProductController {
     @GetMapping("/productUploadForm")
     public String getProviderUploadForm() {
         return "products/productUploadForm";
-    }
-
-    @PostMapping("/importProductFromExcel")
-    public String importExcel(Model model, @RequestParam("file") MultipartFile file) {
-        String uploadDirectoryPath = "src/main/resources/temp_files";
-        String fullPath = "src/main/resources/temp_files/" + file.getOriginalFilename();
-
-        Path fileNameAndPath = Paths.get(uploadDirectoryPath, file.getOriginalFilename());
-        try {
-            Files.write(fileNameAndPath, file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
-                    " НЕ УДАЛОСЬ ИМПОРТИРОВАТЬ!");
-
-            return "suppliers/importResult";
-        }
-        model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
-                " успешно загружен.");
-
-        productService.saveFromExcel(fullPath);
-        return "suppliers/importResult";
     }
 
     @PostMapping("/save")

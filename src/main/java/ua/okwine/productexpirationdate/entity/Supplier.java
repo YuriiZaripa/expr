@@ -2,12 +2,22 @@ package ua.okwine.productexpirationdate.entity;
 
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name="supplier")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Supplier { //
 
     @Id
@@ -31,9 +41,6 @@ public class Supplier { //
                 cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
 
-    public Supplier() {
-    }
-
     public Supplier(String supplierName, String returnCondition, int advanceNotice,
                     int discount) {
         this.supplierName = supplierName;
@@ -42,65 +49,7 @@ public class Supplier { //
         this.discount = discount;
     }
 
-    public Supplier(UUID supplierId, String supplierName,
-                    String returnCondition, int advanceNotice, int discount, List<Product> products) {
-        this.supplierId = supplierId;
-        this.supplierName = supplierName;
-        this.returnCondition = returnCondition;
-        this.advanceNotice = advanceNotice;
-        this.discount = discount;
-        this.products = products;
-    }
-
-    public UUID getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(UUID supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public String getSupplierName() {
-        return supplierName;
-    }
-
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName;
-    }
-
-    public String getReturnCondition() {
-        return returnCondition;
-    }
-
-    public void setReturnCondition(String returnCondition) {
-        this.returnCondition = returnCondition;
-    }
-
-    public int getAdvanceNotice() {
-        return advanceNotice;
-    }
-
-    public void setAdvanceNotice(int advanceNotice) {
-        this.advanceNotice = advanceNotice;
-    }
-
-    public int getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(int discount) {
-        this.discount = discount;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
     public void addProduct(Product product) {
         this.products.add(product);
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 }

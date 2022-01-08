@@ -15,9 +15,9 @@ public class ProductRequest {
         this.product = new Product();
     }
 
-    public ProductRequest(UUID id, String vendorCode, String productName,
+    public ProductRequest(UUID id, String vendorCode, String barCode, String productName,
                           Date produce, Date expirationDate, Supplier supplier, int quantity) {
-        this.product = new Product(id, vendorCode, productName, produce, expirationDate, supplier);
+        this.product = new Product(id, vendorCode, barCode, productName, produce, expirationDate, supplier);
         this.quantity = quantity;
     }
 
