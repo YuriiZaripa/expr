@@ -1,6 +1,7 @@
 package ua.okwine.productexpirationdate.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ua.okwine.productexpirationdate.service.ImportService;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/import")
 @AllArgsConstructor
+@Slf4j
 public class ImportController {
 
     private final ImportService importService;
@@ -29,9 +33,18 @@ public class ImportController {
 
     @PostMapping("/importProductFromExcel")
     public String productExcelUpload(Model model, @RequestParam("file") MultipartFile file) {
-        String fullPath = importService.saveFile(model, file);
+        String fullPath = null;
+        try {
+            fullPath = importService.saveFile(model, file);
+        } catch (IOException e) {
+            log.error("Import file " + file.getOriginalFilename() + " was stopped.", e);
+            model.addAttribute("msg", "Файл \"" + file.getOriginalFilename() +
+                    "\" НЕ УДАЛОСЬ ИМПОРТИРОВАТЬ!");
 
-        importService.saveProductFromExcel(fullPath);
+            return "suppliers/importResult";
+        }
+
+        importService.saveProductFromExcel(model, fullPath);
         return "suppliers/importResult";
     }
 
@@ -42,9 +55,18 @@ public class ImportController {
 
     @PostMapping("/importSuppliersFromExcel")
     public String supplierExcelUpload(Model model, @RequestParam("file") MultipartFile file) {
-        String fullPath = importService.saveFile(model, file);
+        String fullPath = null;
+        try {
+            fullPath = importService.saveFile(model, file);
+        } catch (IOException e) {
+            log.error("Import file " + file.getOriginalFilename() + " was stopped.", e);
+            model.addAttribute("msg", "Файл \"" + file.getOriginalFilename() +
+                    "\" НЕ УДАЛОСЬ ИМПОРТИРОВАТЬ!");
 
-        importService.saveSupplierFromExcel(fullPath);
+            return "suppliers/importResult";
+        }
+
+        importService.saveSupplierFromExcel(model, fullPath);
         return "suppliers/importResult";
     }
 }
