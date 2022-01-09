@@ -11,11 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -45,17 +48,26 @@ public class ImportService {
             Sheet excelSheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = excelSheet.iterator();
             int rowCounter = 1;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date tempDate;
 
             rowIterator.next();
             while (rowIterator.hasNext()) {
                 rowCounter++;
                 Row nextRow = rowIterator.next();
+                tempDate = null;
+                LocalDate produced = null;
 
                 String vendorCode = nextRow.getCell(1).getStringCellValue();
                 String barCode = nextRow.getCell(2).getStringCellValue();
                 String productName = nextRow.getCell(3).getStringCellValue();
-                Date produced = nextRow.getCell(4).getDateCellValue();
-                Date expirationDate = nextRow.getCell(5).getDateCellValue();;
+                tempDate = nextRow.getCell(4).getDateCellValue();
+                if (tempDate != null) {
+                    produced = LocalDate.parse(dateFormat.format(tempDate));
+                }
+
+                tempDate = nextRow.getCell(5).getDateCellValue();
+                LocalDate expirationDate = LocalDate.parse(dateFormat.format(tempDate));
                 Supplier supplier = providerMap.get(nextRow.getCell(6).getStringCellValue());
 
                 productList.add(new Product(vendorCode, barCode, productName,

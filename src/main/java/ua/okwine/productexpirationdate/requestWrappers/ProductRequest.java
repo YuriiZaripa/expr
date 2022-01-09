@@ -3,7 +3,7 @@ package ua.okwine.productexpirationdate.requestWrappers;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class ProductRequest {
@@ -16,7 +16,7 @@ public class ProductRequest {
     }
 
     public ProductRequest(UUID id, String vendorCode, String barCode, String productName,
-                          Date produce, Date expirationDate, Supplier supplier, int quantity) {
+                          LocalDate produce, LocalDate expirationDate, Supplier supplier, int quantity) {
         this.product = new Product(id, vendorCode, barCode, productName, produce, expirationDate, supplier);
         this.quantity = quantity;
     }
@@ -57,19 +57,19 @@ public class ProductRequest {
         product.setProductName(productName);
     }
 
-    public Date getProduced() {
+    public LocalDate getProduced() {
         return product.getProduced();
     }
 
-    public void setProduced(Date produced) {
+    public void setProduced(LocalDate produced) {
         product.setProduced(produced);
     }
 
-    public Date getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return product.getExpirationDate();
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         product.setExpirationDate(expirationDate);
     }
 

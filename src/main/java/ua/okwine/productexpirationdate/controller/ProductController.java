@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
-import ua.okwine.productexpirationdate.requestWrappers.ProductRequestWrapper;
 import ua.okwine.productexpirationdate.service.ProductService;
 import java.util.List;
 import java.util.UUID;
@@ -59,7 +58,6 @@ public class ProductController {
 
         return "products/newExpirationDateForm";
     }
-
 
     @GetMapping("/delete")
     public String deleteById(@RequestParam("id") UUID id) {

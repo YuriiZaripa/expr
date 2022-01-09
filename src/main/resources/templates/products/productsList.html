@@ -45,8 +45,8 @@
         <tr th:each="tempProduct : ${products}">
             <td th:text="${tempProduct.barCode}"/>
             <td th:text="${tempProduct.productName}"/>
-            <td th:text="${#dates.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
-            <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+            <td th:text="${#temporals.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
+            <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
             <td th:text="${tempProduct.supplier.supplierName}"/>
             <td>
                 <a th:href="@{/products/updateProductForm(id=${tempProduct.id})}"

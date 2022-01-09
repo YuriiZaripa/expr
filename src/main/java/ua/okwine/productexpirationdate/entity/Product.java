@@ -4,7 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -31,11 +31,11 @@ public class Product {
 
     @Column(name = "produced")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date produced;
+    private LocalDate produced;
 
     @Column(name = "product_exp_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
@@ -43,7 +43,7 @@ public class Product {
     private Supplier supplier;
 
     public Product(String vendorCode, String barCode, String productName,
-                   Date produced, Date expirationDate, Supplier supplier) {
+                   LocalDate produced, LocalDate expirationDate, Supplier supplier) {
         this.vendorCode = vendorCode;
         this.barCode = barCode;
         this.productName = productName;

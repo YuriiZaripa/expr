@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import ua.okwine.productexpirationdate.dao.ProductRepository;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
-import ua.okwine.productexpirationdate.requestWrappers.ProductRequest;
-import ua.okwine.productexpirationdate.requestWrappers.ProductRequestWrapper;
 
 import java.util.*;
 

@@ -73,8 +73,6 @@ public class ReportService {
         productService.deleteAllById(productsId);
     }
 
-
-
     private List<UUID> removeAllRequests(List<ProductRequest> products) {
         List<UUID> productsId = new ArrayList<>();
 

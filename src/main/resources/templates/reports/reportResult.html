@@ -39,7 +39,7 @@
                 <td th:text="${tempProduct.barCode}"/>
                 <td th:text="${tempProduct.productName}"/>
                 <td th:text="${tempProduct.quantity}"/>
-                <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+                <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
 
                 <input type="hidden" th:field="*{productRequestList1[__${iterator.index}__].quantity}"/>
                 <input type="hidden" th:field="*{productRequestList1[__${iterator.index}__].product}"/>
@@ -65,7 +65,7 @@
                 <td th:text="${tempProduct.barCode}"/>
                 <td th:text="${tempProduct.productName}"/>
                 <td th:text="${tempProduct.quantity}"/>
-                <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+                <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
 
                 <input type="hidden" th:field="*{productRequestList2[__${iterator.index}__].quantity}"/>
                 <input type="hidden" th:field="*{productRequestList2[__${iterator.index}__].product}"/>
@@ -91,7 +91,7 @@
                 <td th:text="${tempProduct.barCode}"/>
                 <td th:text="${tempProduct.productName}"/>
                 <td th:text="${tempProduct.quantity}"/>
-                <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+                <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
 
                 <input type="hidden" th:field="*{productRequestList3[__${iterator.index}__].quantity}"/>
                 <input type="hidden" th:field="*{productRequestList3[__${iterator.index}__].product}"/>

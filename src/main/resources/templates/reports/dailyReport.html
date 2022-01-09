@@ -44,8 +44,8 @@
                     <input type="text" th:field="*{productRequestList1[__${iterator.index}__].quantity}"/>
                     <input type="hidden" th:field="*{productRequestList1[__${iterator.index}__].product}"/>
                 </td>
-                <td th:text="${#dates.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
-                <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+                <td th:text="${#temporals.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
+                <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
                 <td th:text="${tempProduct.supplier.supplierName}"/>
                 <td>
                     <a th:href="@{/products/updateProductForm(id=${tempProduct.product.id})}"
@@ -81,8 +81,8 @@
                     <input type="text" th:field="*{productRequestList2[__${iterator.index}__].quantity}"/>
                     <input type="hidden" th:field="*{productRequestList2[__${iterator.index}__].product}"/>
                 </td>
-                <td th:text="${#dates.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
-                <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+                <td th:text="${#temporals.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
+                <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
                 <td th:text="${tempProduct.supplier.supplierName}"/>
                 <td>
                     <a th:href="@{/products/updateProductForm(id=${tempProduct.product.id})}"
@@ -116,8 +116,8 @@
                     <input type="text" th:field="*{productRequestList3[__${iterator.index}__].quantity}"/>
                     <input type="hidden" th:field="*{productRequestList3[__${iterator.index}__].product}"/>
                 </td>
-                <td th:text="${#dates.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
-                <td th:text="${#dates.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+                <td th:text="${#temporals.format(tempProduct.produced, 'dd.MM.yyyy')}"/>
+                <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
                 <td th:text="${tempProduct.supplier.supplierName}"/>
                 <td>
                     <a th:href="@{/products/updateProductForm(id=${tempProduct.product.id})}"
