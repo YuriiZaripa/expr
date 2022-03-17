@@ -1,0 +1,108 @@
+<! DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Report Result</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container" style="font-style: italic">
+    <h2>Дневной отчет</h2>
+    <br>
+    <a th:href="@{/products/main}">На главную</a>
+    <hr>
+</div>
+
+<div class="container  mt-3">
+    <br>
+
+    <form action="#" th:action="@{/report/dailyReportDone}"
+          th:object="${products}" th:method="POST">
+
+        <h2>Не забирают возвраты</h2>
+        <table class="table table-bordered" style="font-style: italic;">
+            <thead class="thead-blue">
+
+            <th>Поставщик</th>
+            <th>Штрих-код</th>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Годен до</th>
+            </thead>
+            <tbody style="font-size: 14px">
+            <tr th:each="tempProduct, iterator : *{productRequestList1}">
+
+                <td th:text="${tempProduct.supplier.supplierName}"/>
+                <td th:text="${tempProduct.barCode}"/>
+                <td th:text="${tempProduct.productName}"/>
+                <td th:text="${tempProduct.quantity}"/>
+                <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+
+                <input type="hidden" th:field="*{productRequestList1[__${iterator.index}__].quantity}"/>
+                <input type="hidden" th:field="*{productRequestList1[__${iterator.index}__].product}"/>
+
+            </tbody>
+        </table>
+        <br>
+
+        <h2>Физобмен</h2>
+        <table class="table table-bordered" style="font-style: italic;">
+            <thead class="thead-blue">
+
+            <th>Поставщик</th>
+            <th>Штрих-код</th>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Годен до</th>
+            </thead>
+            <tbody style="font-size: 14px">
+            <tr th:each="tempProduct, iterator : *{productRequestList2}">
+
+                <td th:text="${tempProduct.supplier.supplierName}"/>
+                <td th:text="${tempProduct.barCode}"/>
+                <td th:text="${tempProduct.productName}"/>
+                <td th:text="${tempProduct.quantity}"/>
+                <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+
+                <input type="hidden" th:field="*{productRequestList2[__${iterator.index}__].quantity}"/>
+                <input type="hidden" th:field="*{productRequestList2[__${iterator.index}__].product}"/>
+
+            </tbody>
+        </table>
+        <br>
+
+        <h2>Без условий</h2>
+        <table class="table table-bordered" style="font-style: italic;">
+            <thead class="thead-blue">
+
+            <th>Поставщик</th>
+            <th>Штрих-код</th>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Годен до</th>
+            </thead>
+            <tbody style="font-size: 14px">
+            <tr th:each="tempProduct, iterator : *{productRequestList3}">
+
+                <td th:text="${tempProduct.supplier.supplierName}"/>
+                <td th:text="${tempProduct.barCode}"/>
+                <td th:text="${tempProduct.productName}"/>
+                <td th:text="${tempProduct.quantity}"/>
+                <td th:text="${#temporals.format(tempProduct.expirationDate, 'dd.MM.yyyy')}"/>
+
+                <input type="hidden" th:field="*{productRequestList3[__${iterator.index}__].quantity}"/>
+                <input type="hidden" th:field="*{productRequestList3[__${iterator.index}__].product}"/>
+
+            </tbody>
+        </table>
+        <br>
+
+        <input type="submit" class="btn  btn-success col-10"/>
+        <br>
+    </form>
+</div>
+</body>
+</html>

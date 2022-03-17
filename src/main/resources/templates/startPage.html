@@ -1,0 +1,73 @@
+<! DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Start Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<br>
+<br>
+<div class="btn-group-vertical" style=" position: relative; width: 35%;
+                left: 50%; transform: translate(-50%, 0); font-style: italic">
+    <a th:href="@{/report/dailyReport}" type="submit" class="btn btn-success" style="font-size: 25px;
+            color: #4D4746">
+        Ежедневный отчет
+    </a>
+
+    <br>
+    <br>
+
+<!--    <a type="submit" class="btn  btn-success" style="font-size: 25px;-->
+<!--            color: #4D4746">-->
+<!--        Недельный отчет-->
+<!--    </a>-->
+
+<!--    <br>-->
+<!--    <br>-->
+
+    <a type="submit" th:href="@{/products/newExpDateForm}" class="btn  btn-success" style="font-size: 25px;
+             color: #4D4746">
+        Новое поступление
+    </a>
+
+    <br>
+    <br>
+
+    <a type="submit" th:href="@{/suppliers/suppliersList}" class="btn btn-success" style="font-size: 25px;
+            color: #4D4746">
+        Поставщики
+    </a>
+
+    <br>
+    <br>
+
+    <a type="submit" th:href="@{/products/productsList}" class="btn btn-success" style="font-size: 25px;
+            color: #4D4746">
+        Сводная таблица
+    </a>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</div>
+
+<div>
+
+    <a type="submit" th:href="@{/import/importForm}" class="btn btn-info" style="font-size: 14px;
+            color: #4D4746; margin-left: 5px;">
+        Импортировать
+    </a>
+</div>
+
+</body>
+</html>
