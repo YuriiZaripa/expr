@@ -67,7 +67,7 @@ public class ImportService {
                 LocalDate produced = null;
 
                 String vendorCode = nextRow.getCell(1).getStringCellValue();
-                String barCode = nextRow.getCell(2).getStringCellValue();
+                String barCode = nextRow.getCell(2).getStringCellValue().trim();
                 String productName = nextRow.getCell(3).getStringCellValue();
                 tempDate = nextRow.getCell(4).getDateCellValue();
                 if (tempDate != null) {
