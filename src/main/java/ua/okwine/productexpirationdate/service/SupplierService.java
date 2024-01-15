@@ -16,12 +16,12 @@ public class SupplierService {
 
     private final SupplierRepository supplierRepository;
 
-    public void save(Supplier supplier) {
-        supplierRepository.save(supplier);
+    public Supplier save(Supplier supplier) {
+        return supplierRepository.save(supplier);
     }
 
-    public void saveAll(List<Supplier> suppliers) {
-        supplierRepository.saveAll(suppliers);
+    public List<Supplier> saveAll(List<Supplier> suppliers) {
+        return supplierRepository.saveAll(suppliers);
     }
 
     public Supplier findById(UUID id) {
