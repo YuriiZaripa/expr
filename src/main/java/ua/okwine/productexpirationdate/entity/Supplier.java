@@ -26,10 +26,10 @@ public class Supplier { //
 
     @Id
     @GeneratedValue
-    @Column(name = "supplier_id") //
+    @Column(name = "supplier_id")
     private UUID supplierId;
 
-    @Column(name = "supplier_name") //
+    @Column(name = "supplier_name")
     private String supplierName;
 
     @Column(name = "return_condition")

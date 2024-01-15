@@ -29,26 +29,24 @@ public class ImportService {
     private final ProductService productService;
     private final SupplierService supplierService;
 
-    public String saveFile(Model model, MultipartFile file) throws  IOException{
+    public String saveFile(MultipartFile file) throws  IOException{
         String uploadDirectoryPath = "src/main/resources/temp_files";
         String fullPath = "src/main/resources/temp_files/" + file.getOriginalFilename();
 
         Path fileNameAndPath = Paths.get(uploadDirectoryPath, file.getOriginalFilename());
         Files.write(fileNameAndPath, file.getBytes());
 
-        model.addAttribute("msg", "Файл " + file.getOriginalFilename() +
-                " успешно загружен.");
         return fullPath;
     }
 
-    public void saveProductFromExcel(Model model, String path) {
+    public List<Product> saveProductFromExcel(String path) {
         Map<String, Supplier> providerMap = supplierService.findAllByName();
-        List<Product> productList = excelProductImport(model, path, providerMap);
+        List<Product> productList = excelProductImport(path, providerMap);
 
-        productService.saveAll(productList);
+        return productService.saveAll(productList);
     }
 
-    public  List<Product> excelProductImport(Model model, String excelFilePath, Map<String, Supplier> providerMap) {
+    public  List<Product> excelProductImport(String excelFilePath, Map<String, Supplier> providerMap) {
         List <Product> productList = new ArrayList<>();
         int rowCounter = 1;
 
@@ -82,20 +80,19 @@ public class ImportService {
                         produced, expirationDate, supplier));
             }
         } catch (Exception e) {
-            log.error("Import file " + excelFilePath + " was stopped.", e);
-            model.addAttribute("msg", "Обработка файла \"" + excelFilePath +
-                    "\" была прервана из-за несотвецтвия формата, или пустой ячейки в " + rowCounter + " рядке документа.");
+            log.error("Import file " + excelFilePath + " was stopped by row " + rowCounter + ". ", e);
+            throw new RuntimeException("Import file " + excelFilePath + " was stopped by row " + rowCounter + ". ", e);
         }
 
         return  productList;
     }
 
-    public void saveSupplierFromExcel(Model model, String path) {
-        List<Supplier> supplierList = excelSupplierImport(model, path);
-        supplierService.saveAll(supplierList);
+    public List<Supplier> saveSupplierFromExcel(String path) {
+        List<Supplier> supplierList = excelSupplierImport(path);
+        return supplierService.saveAll(supplierList);
     }
 
-    public static List<Supplier> excelSupplierImport(Model model, String excelFilePath) {
+    public static List<Supplier> excelSupplierImport(String excelFilePath) {
         List <Supplier> supplierList = new ArrayList<>();
         int rowCounter = 1;
 
@@ -118,9 +115,8 @@ public class ImportService {
             }
 
         } catch (Exception e) {
-            log.error("Import file " + excelFilePath + " was stopped.", e);
-            model.addAttribute("msg", "Обработка файла \"" + excelFilePath +
-                    "\" была прервана в " + rowCounter + " рядке документа из-за пустой или несответствующего формата ячейки.");
+            log.error("Import file " + excelFilePath + " was stopped by row " + rowCounter + ". ", e);
+            throw new RuntimeException("Import file " + excelFilePath + " was stopped by row " + rowCounter + ". ", e);
         }
 
         return supplierList;

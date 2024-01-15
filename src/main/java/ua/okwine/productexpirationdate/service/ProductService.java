@@ -31,12 +31,12 @@ public class ProductService {
         return productRepository.findAllByAdvanceNotice(advanceNotice);
     }
 
-    public void save(Product product) {
-        productRepository.save(product);
+    public Product save(Product product) {
+        return productRepository.save(product);
     }
 
-    public void saveAll(List<Product> products) {
-        productRepository.saveAll(products);
+    public List<Product> saveAll(List<Product> products) {
+        return productRepository.saveAll(products);
     }
 
     public void deleteById(UUID id) {

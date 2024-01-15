@@ -7,54 +7,38 @@ import org.springframework.web.bind.annotation.*;
 import ua.okwine.productexpirationdate.entity.Supplier;
 import ua.okwine.productexpirationdate.service.SupplierService;
 
+import java.util.List;
 import java.util.UUID;
 
 
-@Controller
+@RestController
 @RequestMapping("/suppliers")
 @AllArgsConstructor
 public class SupplierController {
 
     private final SupplierService supplierService;
 
-    @GetMapping("/suppliersList")
-    public String getAll(Model model) {
-
-        model.addAttribute("suppliers", supplierService.findAll());
-
-        return "suppliers/suppliersList";
+    @GetMapping()
+    public List<Supplier> findAll() {
+        return supplierService.findAll();
     }
 
-    @GetMapping("/showFormForAdd")
-    public String getFormForAdd(Model model) {
-        Supplier supplier = new Supplier();
-
-        model.addAttribute("supplier", supplier);
-
-        return "suppliers/newSupplierForm";
+//    @GetMapping("/showFormForAdd")
+//    public String getFormForAdd(Model model) {
+//        Supplier supplier = new Supplier();
+//
+//        model.addAttribute("supplier", supplier);
+//
+//        return "suppliers/newSupplierForm";
+//    }
+//
+    @PostMapping()
+    public Supplier saveProvider(@RequestBody Supplier supplier) {
+        return supplierService.save(supplier);
     }
 
-    @PostMapping("/save")
-    public String saveProvider(@ModelAttribute("provider") Supplier supplier) {
-        supplierService.save(supplier);
-
-        return "redirect:suppliersList";
-    }
-
-    @GetMapping("/updateSupplierForm")
-    public String updateProvider(@RequestParam("supplierId") UUID id,
-                                 Model model) {
-        Supplier supplier = supplierService.findById(id);
-
-        model.addAttribute("supplier", supplier);
-
-        return "suppliers/newSupplierForm";
-    }
-
-    @GetMapping("/delete")
-    public String deleteById(@RequestParam("supplierId") UUID id) {
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable UUID id) {
         supplierService.deleteById(id);
-
-        return "redirect:suppliersList";
     }
 }
