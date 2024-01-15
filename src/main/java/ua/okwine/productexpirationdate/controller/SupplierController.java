@@ -23,15 +23,6 @@ public class SupplierController {
         return supplierService.findAll();
     }
 
-//    @GetMapping("/showFormForAdd")
-//    public String getFormForAdd(Model model) {
-//        Supplier supplier = new Supplier();
-//
-//        model.addAttribute("supplier", supplier);
-//
-//        return "suppliers/newSupplierForm";
-//    }
-//
     @PostMapping()
     public Supplier saveProvider(@RequestBody Supplier supplier) {
         return supplierService.save(supplier);

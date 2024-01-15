@@ -27,16 +27,6 @@ public class ImportController {
 
     private final ImportService importService;
 
-//    @GetMapping("/importForm")
-//    public String getFormToImport() {
-//        return "import";
-//    }
-//
-//    @GetMapping("/productUploadForm")
-//    public String getProviderUploadForm() {
-//        return "products/productUploadForm";
-//    }
-
     @PostMapping(value = "/importProductFromExcel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public List<Product> productExcelUpload(@RequestParam("upload") MultipartFile file) {
         String fullPath = null;
@@ -50,11 +40,6 @@ public class ImportController {
 
         return importService.saveProductFromExcel(fullPath);
     }
-
-//    @GetMapping("/supplierUploadForm")
-//    public String getUploadForm() {
-//        return "suppliers/supplierUploadForm";
-//    }
 
     @PostMapping(value ="/importSuppliersFromExcel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public List<Supplier> supplierExcelUpload(@RequestPart(value = "upload") MultipartFile file) {

@@ -24,14 +24,4 @@ public class ReportController {
     public ProductRequestWrapper createDailyReport() {
         return reportService.findAllToDaileReport();
     }
-
-//    @PostMapping("/updateProducts")
-//    public void processing(@RequestBody ProductRequestWrapper products) {
-//        reportService.productsProcessing(products);
-//    }
-
-//    @DeleteMapping("/dailyReportDone")
-//    public void deleteProducts(@RequestBody ProductRequestWrapper products) {
-//        reportService.deleteAll(products);
-//    }
 }
