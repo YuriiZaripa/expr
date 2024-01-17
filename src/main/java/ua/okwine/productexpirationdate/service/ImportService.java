@@ -7,10 +7,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
+import ua.okwine.productexpirationdate.exceptions.NotExistingOrEmptySupplier;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class ImportService {
         return productService.saveAll(productList);
     }
 
-    public  List<Product> excelProductImport(String excelFilePath, Map<String, Supplier> providerMap) {
+    public  List<Product> excelProductImport(String excelFilePath, Map<String, Supplier> suppliersMap) {
         List <Product> productList = new ArrayList<>();
         int rowCounter = 1;
 
@@ -74,12 +74,16 @@ public class ImportService {
 
                 tempDate = nextRow.getCell(5).getDateCellValue();
                 LocalDate expirationDate = LocalDate.parse(dateFormat.format(tempDate));
-                Supplier supplier = providerMap.get(nextRow.getCell(6).getStringCellValue());
+                Supplier supplier = suppliersMap.get(nextRow.getCell(6).getStringCellValue());
+
+                if (supplier == null ) {
+                    throw new NotExistingOrEmptySupplier(rowCounter);
+                }
 
                 productList.add(new Product(vendorCode, barCode, productName,
                         produced, expirationDate, supplier));
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             log.error("Import file " + excelFilePath + " was stopped by row " + rowCounter + ". ", e);
             throw new RuntimeException("Import file " + excelFilePath + " was stopped by row " + rowCounter + ". ", e);
         }
