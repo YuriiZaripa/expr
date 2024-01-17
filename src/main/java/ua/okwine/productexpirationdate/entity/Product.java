@@ -1,6 +1,5 @@
 package ua.okwine.productexpirationdate.entity;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,11 +19,11 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name="product")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Table(name = "product")
 public class Product {
 
     @Id
