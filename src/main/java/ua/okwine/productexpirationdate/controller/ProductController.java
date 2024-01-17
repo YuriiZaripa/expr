@@ -1,11 +1,10 @@
 package ua.okwine.productexpirationdate.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.okwine.productexpirationdate.entity.Product;
-import ua.okwine.productexpirationdate.entity.Supplier;
 import ua.okwine.productexpirationdate.service.ProductService;
+
 import java.util.List;
 import java.util.UUID;
 

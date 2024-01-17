@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name="supplier")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Supplier { //
+@Getter
+@Setter
+@Table(name = "supplier")
+public class Supplier {
 
     @Id
     @GeneratedValue
@@ -42,7 +42,7 @@ public class Supplier { //
     private int discount;
 
     @OneToMany(mappedBy = "supplier",
-                cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
 
     public Supplier(String supplierName, String returnCondition, int advanceNotice,
