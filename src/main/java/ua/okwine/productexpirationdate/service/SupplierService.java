@@ -28,12 +28,16 @@ public class SupplierService {
         return supplierRepository.getById(id);
     }
 
-    public List<Supplier> findAll() {
+    public List<Supplier> findAllActive() {
+        return supplierRepository.findByIsActiveTrueOrderBySupplierName();
+    }
+
+    public List<Supplier> findAllWithNotActive() {
         return supplierRepository.findAllByOrderBySupplierNameAsc();
     }
 
     public Map<String, Supplier> findAllByName() {
-        List<Supplier> suppliers = findAll();
+        List<Supplier> suppliers = findAllActive();
         Map<String, Supplier> suppliersByName = new HashMap<>();
 
         for(Supplier supplier : suppliers) {

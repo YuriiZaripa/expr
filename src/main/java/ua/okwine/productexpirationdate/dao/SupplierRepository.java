@@ -8,5 +8,7 @@ import java.util.UUID;
 
 public interface SupplierRepository extends JpaRepository<Supplier, UUID> {
 
-    public List<Supplier> findAllByOrderBySupplierNameAsc();
+    List<Supplier> findAllByOrderBySupplierNameAsc();
+
+    List<Supplier> findByIsActiveTrueOrderBySupplierName();
 }
