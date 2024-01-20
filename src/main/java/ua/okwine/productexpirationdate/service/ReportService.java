@@ -18,9 +18,9 @@ public class ReportService {
     private final ProductService productService;
 
     public ProductRequestWrapper findAllToDaileReport() {
-        List<Product> products1 = productService.findAllByAdvanceNotice("не забирают возвраты");
-        List<Product> products2 = productService.findAllByAdvanceNotice("физобмен");
-        List<Product> products3 = productService.findAllByAdvanceNotice("");
+        List<Product> products1 = productService.findAllNotReportedByAdvanceNotice("не забирают возвраты");
+        List<Product> products2 = productService.findAllNotReportedByAdvanceNotice("физобмен");
+        List<Product> products3 = productService.findAllNotReportedByAdvanceNotice("");
 
         ProductRequestWrapper productRequestWrapper = new ProductRequestWrapper(
                 toProductRequest(products1),
@@ -57,7 +57,7 @@ public class ReportService {
             ProductRequest product = productsIterator.next();
 
             if(product.getQuantity() == 0) {
-                productsId.add(product.getId());
+                productsId.add(product.getProduct().getId());
                 productsIterator.remove();
             }
         }
@@ -78,8 +78,8 @@ public class ReportService {
 
         ListIterator<ProductRequest> productsIterator = products.listIterator();
         while(productsIterator.hasNext()) {
-            ProductRequest product = productsIterator.next();
-            productsId.add(product.getId());
+            ProductRequest productReport = productsIterator.next();
+            productsId.add(productReport.getProduct().getId());
             productsIterator.remove();
         }
 

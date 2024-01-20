@@ -15,20 +15,24 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final SupplierService supplierService;
 
-    public List<Product> findAll() {
+    public List<Product> findAllNotReported() {
+        return productRepository.findByIsReportedFalse();
+    }
+
+    public List<Product> findAllWithReported() {
         return productRepository.findAll();
     }
 
     public List<Supplier> findAllSuppliers() {
-        return supplierService.findAll();
+        return supplierService.findAllActive();
     }
 
     public Product findById(UUID id) {
         return productRepository.getById(id);
     }
 
-    public List<Product> findAllByAdvanceNotice(String advanceNotice) {
-        return productRepository.findAllByAdvanceNotice(advanceNotice);
+    public List<Product> findAllNotReportedByAdvanceNotice(String advanceNotice) {
+        return productRepository.findAllNotReportedByAdvanceNotice(advanceNotice);
     }
 
     public Product save(Product product) {

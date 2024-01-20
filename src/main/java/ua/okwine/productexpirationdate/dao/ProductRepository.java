@@ -11,9 +11,10 @@ import java.util.UUID;
 public interface ProductRepository extends JpaRepository<Product, UUID> {
     
     @Query("SELECT p FROM Product p " +
-        "JOIN p.supplier s " +
         "WHERE p.expirationDate <= current_date " +
-        "AND s.supplierId IN (SELECT sp.supplierId FROM Supplier sp WHERE sp.returnCondition = :type) " +
-        "ORDER BY s.supplierName")
-    public List<Product> findAllByAdvanceNotice(@Param("type") String type);
+        "AND p.isReported = false " +
+        "AND p.supplier.returnCondition = :type")
+    List<Product> findAllNotReportedByAdvanceNotice(@Param("type") String type);
+
+    List<Product> findByIsReportedFalse();
 }

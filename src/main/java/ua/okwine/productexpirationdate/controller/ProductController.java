@@ -22,8 +22,13 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping()
-    public List<Product> findAll() {
-        return productService.findAll();
+    public List<Product> findAllNotReported() {
+        return productService.findAllNotReported();
+    }
+
+    @GetMapping("/forAllTime")
+    public List<Product> findAllWithReported() {
+        return productService.findAllWithReported();
     }
 
     @PostMapping()
