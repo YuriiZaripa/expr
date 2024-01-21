@@ -17,4 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     List<Product> findAllNotReportedByAdvanceNotice(@Param("type") String type);
 
     List<Product> findByIsReportedFalse();
+
+    List<Product> findByImageIsNull();
 }
