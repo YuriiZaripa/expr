@@ -23,8 +23,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Supplier> findAllSuppliers() {
-        return supplierService.findAllActive();
+    public List<Product> findAllWithEmptyImage() {
+        return productRepository.findByImageIsNull();
     }
 
     public Product findById(UUID id) {
@@ -48,4 +48,8 @@ public class ProductService {
     }
 
     public void deleteAllById(List<UUID> id) { productRepository.deleteAllById(id); }
+
+    public void updateAll(List<Product> products) {
+        productRepository.saveAll(products);
+    }
 }
