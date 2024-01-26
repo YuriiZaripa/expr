@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.okwine.productexpirationdate.entity.Supplier;
+import ua.okwine.productexpirationdate.dto.SupplierDTO;
 import ua.okwine.productexpirationdate.service.SupplierService;
 
 import java.util.List;
@@ -23,13 +23,18 @@ public class SupplierController {
     private final SupplierService supplierService;
 
     @GetMapping()
-    public List<Supplier> findAll() {
+    public List<SupplierDTO> findAll() {
         return supplierService.findAll();
     }
 
     @PostMapping()
-    public Supplier saveProvider(@RequestBody Supplier supplier) {
-        return supplierService.save(supplier);
+    public SupplierDTO saveSupplier(@RequestBody SupplierDTO supplierDTO) {
+        return supplierService.save(supplierDTO);
+    }
+
+    @PostMapping("/all")
+    public List<SupplierDTO> saveAllSupplier(@RequestBody List<SupplierDTO> supplierDTOList) {
+        return supplierService.saveAll(supplierDTOList);
     }
 
     @DeleteMapping("/{id}")
