@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /product-axpiration-date/api/v1
+    context-path: /product-expiration-date/api/v1
 
 spring:
   output:

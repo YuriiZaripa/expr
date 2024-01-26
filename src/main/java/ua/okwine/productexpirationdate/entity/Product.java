@@ -54,6 +54,12 @@ public class Product {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
+    @Column(name = "image")
+    private String image;
+
+    @Column(name = "is_reported")
+    private boolean isReported = false;
+
     public Product(String vendorCode, String barCode, String productName,
                    LocalDate produced, LocalDate expirationDate, Supplier supplier) {
         this.vendorCode = vendorCode;

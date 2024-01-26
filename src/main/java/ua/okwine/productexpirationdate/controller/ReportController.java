@@ -14,7 +14,7 @@ public class ReportController {
 
     private  final ReportService reportService;
 
-    @GetMapping("/dailyReport")
+    @GetMapping("/dailyReports")
     public ProductRequestWrapper createDailyReport() {
         return reportService.findAllToDaileReport();
     }

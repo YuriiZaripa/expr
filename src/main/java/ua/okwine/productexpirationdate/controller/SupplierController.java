@@ -25,6 +25,15 @@ public class SupplierController {
     @GetMapping()
     public List<SupplierDTO> findAll() {
         return supplierService.findAll();
+        }
+
+    public List<Supplier> findAllActive() {
+        return supplierService.findAllActive();
+    }
+
+    @GetMapping("/forAllTime")
+    public List<Supplier> findAllWithNotActive() {
+        return supplierService.findAllWithNotActive();
     }
 
     @PostMapping()
