@@ -1,4 +1,4 @@
-package ua.okwine.productexpirationdate.dto;
+package ua.okwine.productexpirationdate.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

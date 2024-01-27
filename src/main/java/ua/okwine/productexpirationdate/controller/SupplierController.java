@@ -1,6 +1,6 @@
 package ua.okwine.productexpirationdate.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.okwine.productexpirationdate.dto.SupplierDTO;
+import ua.okwine.productexpirationdate.entity.dto.SupplierDTO;
 import ua.okwine.productexpirationdate.entity.dto.SuppliersByReturnConditionTypeDTO;
 import ua.okwine.productexpirationdate.service.SupplierService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
 @RestController
 @RequestMapping("/suppliers")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SupplierController {
 
     private final SupplierService supplierService;
@@ -29,8 +30,7 @@ public class SupplierController {
     }
 
     @GetMapping("/{id}")
-    public SupplierDTO findById(@PathVariable UUID id) {
-
+    public Optional<SupplierDTO> findById(@PathVariable UUID id) {
         return supplierService.findById(id);
     }
 
