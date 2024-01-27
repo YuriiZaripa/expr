@@ -1,8 +1,7 @@
-package ua.okwine.productexpirationdate.dto.mapper;
+package ua.okwine.productexpirationdate.entity.dto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import ua.okwine.productexpirationdate.dto.SupplierDTO;
 import ua.okwine.productexpirationdate.entity.Supplier;
 
 import java.util.List;

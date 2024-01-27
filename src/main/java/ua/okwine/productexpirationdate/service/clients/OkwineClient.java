@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
-import ua.okwine.productexpirationdate.entity.dto.parsingDTO.OkwineResponse;
-import ua.okwine.productexpirationdate.entity.dto.parsingDTO.OkwineResponseProductDTO;
+import ua.okwine.productexpirationdate.entity.dto.parsing.OkwineResponse;
+import ua.okwine.productexpirationdate.entity.dto.parsing.OkwineResponseProductDTO;
 
 import java.util.ArrayList;
 import java.util.List;

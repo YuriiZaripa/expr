@@ -1,5 +1,6 @@
 package ua.okwine.productexpirationdate.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,6 +46,7 @@ public class Supplier {
     @Column(name = "is_active")
     private boolean isActive = true;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "supplier",
             cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();

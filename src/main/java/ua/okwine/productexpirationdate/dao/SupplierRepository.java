@@ -11,4 +11,6 @@ public interface SupplierRepository extends JpaRepository<Supplier, UUID> {
     List<Supplier> findAllByOrderBySupplierNameAsc();
 
     List<Supplier> findByIsActiveTrueOrderBySupplierName();
+
+    List<Supplier> findByReturnConditionAndIsActiveTrueOrderBySupplierName(String advanceNotice);
 }
