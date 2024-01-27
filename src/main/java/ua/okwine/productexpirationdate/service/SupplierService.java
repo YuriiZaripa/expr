@@ -21,14 +21,14 @@ public class SupplierService {
 
     public SupplierDTO save(SupplierDTO supplierDTO) {
         Supplier supplierToEntity = supplierMapper.mapToSupplier(supplierDTO);
-        Supplier savaEntityToDB = supplierRepository.save(supplierToEntity);
+        Supplier savedSupplierEntity = supplierRepository.save(supplierToEntity);
 
-        return supplierMapper.mapToSupplierDTO(savaEntityToDB);
+        return supplierMapper.mapToSupplierDTO(savedSupplierEntity);
     }
 
     public List<SupplierDTO> saveAll(List<SupplierDTO> supplierDTOList) {
-        List<Supplier> supplierListEntity = supplierMapper.mapToListSupplier(supplierDTOList);
-        List<Supplier> savedListEntityToDB = supplierRepository.saveAll(supplierListEntity);
+        List<Supplier> supplierEntities = supplierMapper.mapToListSupplier(supplierDTOList);
+        List<Supplier> savedListEntityToDB = supplierRepository.saveAll(supplierEntities);
 
         return supplierMapper.mapToListSupplierDTO(savedListEntityToDB);
     }
@@ -60,9 +60,8 @@ public class SupplierService {
     }
 
     public List<SupplierDTO> findAll() {
-        List<SupplierDTO> listSupplierDTO = supplierMapper.mapToListSupplierDTO(supplierRepository.findAllByOrderBySupplierNameAsc());
 
-        return listSupplierDTO;
+        return supplierMapper.mapToListSupplierDTO(supplierRepository.findAllByOrderBySupplierNameAsc());
     }
 
     public void deleteById(UUID id) {
