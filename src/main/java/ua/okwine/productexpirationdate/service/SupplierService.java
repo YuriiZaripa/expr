@@ -31,25 +31,28 @@ public class SupplierService {
         List<Supplier> savedListEntityToDB = supplierRepository.saveAll(supplierListEntity);
 
         return supplierMapper.mapToListSupplierDTO(savedListEntityToDB);
-   }
-
-    public List<Supplier> findAllActive() {
-        return supplierRepository.findByIsActiveTrueOrderBySupplierName();
     }
 
-    public List<Supplier> findAllWithNotActive() {
-        return supplierRepository.findAllByOrderBySupplierNameAsc();
+    public List<SupplierDTO> findAllActive() {
+
+        return supplierMapper.mapToListSupplierDTO(supplierRepository.findByIsActiveTrueOrderBySupplierName());
     }
+
+    public List<SupplierDTO> findAllWithNotActive() {
+
+        return supplierMapper.mapToListSupplierDTO(supplierRepository.findAllByOrderBySupplierNameAsc());
+    }
+
     public SupplierDTO findById(UUID id) {
 
         return supplierMapper.mapToSupplierDTO(supplierRepository.getById(id));
     }
 
     public Map<String, Supplier> findAllByName() {
-        List<Supplier> suppliers = findAllActive();
+        List<Supplier> suppliers = supplierRepository.findByIsActiveTrueOrderBySupplierName();
         Map<String, Supplier> suppliersByName = new HashMap<>();
 
-        for(Supplier supplier : suppliers) {
+        for (Supplier supplier : suppliers) {
             suppliersByName.put(supplier.getSupplierName(), supplier);
         }
 
@@ -63,6 +66,7 @@ public class SupplierService {
     }
 
     public void deleteById(UUID id) {
+
         supplierRepository.deleteById(id);
     }
 }

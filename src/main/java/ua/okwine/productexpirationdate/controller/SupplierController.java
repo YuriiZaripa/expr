@@ -25,14 +25,20 @@ public class SupplierController {
     @GetMapping()
     public List<SupplierDTO> findAll() {
         return supplierService.findAll();
-        }
+    }
 
-    public List<Supplier> findAllActive() {
+    @GetMapping("/{id}")
+    public SupplierDTO findById(@PathVariable UUID id) {
+
+        return supplierService.findById(id);
+    }
+
+    public List<SupplierDTO> findAllActive() {
         return supplierService.findAllActive();
     }
 
     @GetMapping("/forAllTime")
-    public List<Supplier> findAllWithNotActive() {
+    public List<SupplierDTO> findAllWithNotActive() {
         return supplierService.findAllWithNotActive();
     }
 
