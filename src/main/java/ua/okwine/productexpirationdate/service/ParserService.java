@@ -3,7 +3,7 @@ package ua.okwine.productexpirationdate.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ua.okwine.productexpirationdate.entity.dto.parsingDTO.OkwineResponseProductDTO;
+import ua.okwine.productexpirationdate.entity.dto.parsing.OkwineResponseProductDTO;
 import ua.okwine.productexpirationdate.service.clients.OkwineClient;
 
 import java.util.Map;

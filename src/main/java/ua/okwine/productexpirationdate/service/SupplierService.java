@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ua.okwine.productexpirationdate.dao.SupplierRepository;
 import ua.okwine.productexpirationdate.entity.Supplier;
+import ua.okwine.productexpirationdate.entity.dto.SuppliersByReturnConditionTypeDTO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,5 +50,13 @@ public class SupplierService {
 
     public void deleteById(UUID id) {
         supplierRepository.deleteById(id);
+    }
+
+    public SuppliersByReturnConditionTypeDTO findAllSeparatedByType() {
+        List<Supplier> exchangeNotice = supplierRepository.findByReturnConditionAndIsActiveTrueOrderBySupplierName("не забирают возвраты");
+        List<Supplier> writeOffNotice = supplierRepository.findByReturnConditionAndIsActiveTrueOrderBySupplierName("физобмен");
+        List<Supplier> regularNotice = supplierRepository.findByReturnConditionAndIsActiveTrueOrderBySupplierName("");
+
+        return new SuppliersByReturnConditionTypeDTO(exchangeNotice, writeOffNotice, regularNotice);
     }
 }

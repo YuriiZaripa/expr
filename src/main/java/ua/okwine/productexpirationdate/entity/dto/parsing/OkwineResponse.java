@@ -1,10 +1,8 @@
-package ua.okwine.productexpirationdate.entity.dto.parsingDTO;
+package ua.okwine.productexpirationdate.entity.dto.parsing;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.List;
 
 @Getter
 @Setter
