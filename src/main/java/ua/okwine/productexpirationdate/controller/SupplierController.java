@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.okwine.productexpirationdate.entity.Supplier;
+import ua.okwine.productexpirationdate.dto.SupplierDTO;
 import ua.okwine.productexpirationdate.service.SupplierService;
 
 import java.util.List;
@@ -23,18 +23,33 @@ public class SupplierController {
     private final SupplierService supplierService;
 
     @GetMapping()
-    public List<Supplier> findAllActive() {
+    public List<SupplierDTO> findAll() {
+        return supplierService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public SupplierDTO findById(@PathVariable UUID id) {
+
+        return supplierService.findById(id);
+    }
+
+    public List<SupplierDTO> findAllActive() {
         return supplierService.findAllActive();
     }
 
     @GetMapping("/forAllTime")
-    public List<Supplier> findAllWithNotActive() {
+    public List<SupplierDTO> findAllWithNotActive() {
         return supplierService.findAllWithNotActive();
     }
 
     @PostMapping()
-    public Supplier saveProvider(@RequestBody Supplier supplier) {
-        return supplierService.save(supplier);
+    public SupplierDTO saveSupplier(@RequestBody SupplierDTO supplierDTO) {
+        return supplierService.save(supplierDTO);
+    }
+
+    @PostMapping("/all")
+    public List<SupplierDTO> saveAllSupplier(@RequestBody List<SupplierDTO> supplierDTOList) {
+        return supplierService.saveAll(supplierDTOList);
     }
 
     @DeleteMapping("/{id}")

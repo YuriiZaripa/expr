@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ua.okwine.productexpirationdate.dao.SupplierRepository;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
 import ua.okwine.productexpirationdate.exceptions.NotExistingOrEmptySupplier;
@@ -19,7 +20,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -27,9 +33,10 @@ import java.util.*;
 public class ImportService {
 
     private final ProductService productService;
-    private final SupplierService supplierService;
+    // private final SupplierService supplierService;
+    private final SupplierRepository supplierRepository;
 
-    public String saveFile(MultipartFile file) throws  IOException{
+    public String saveFile(MultipartFile file) throws IOException {
         String uploadDirectoryPath = "src/main/resources/temp_files";
         String fullPath = "src/main/resources/temp_files/" + file.getOriginalFilename();
 
@@ -40,17 +47,24 @@ public class ImportService {
     }
 
     public List<Product> saveProductFromExcel(String path) {
-        Map<String, Supplier> providerMap = supplierService.findAllByName();
+        // Map<String, Supplier> providerMap = supplierService.findAllByName();
+        List<Supplier> suppliers = supplierRepository.findAll();
+        Map<String, Supplier> providerMap = new HashMap<>();
+
+        for (Supplier supplier : suppliers) {
+            providerMap.put(supplier.getSupplierName(), supplier);
+        }
+
         List<Product> productList = excelProductImport(path, providerMap);
 
         return productService.saveAll(productList);
     }
 
-    public  List<Product> excelProductImport(String excelFilePath, Map<String, Supplier> suppliersMap) {
-        List <Product> productList = new ArrayList<>();
+    public List<Product> excelProductImport(String excelFilePath, Map<String, Supplier> suppliersMap) {
+        List<Product> productList = new ArrayList<>();
         int rowCounter = 1;
 
-        try(FileInputStream inputStream = new FileInputStream(excelFilePath)) {
+        try (FileInputStream inputStream = new FileInputStream(excelFilePath)) {
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet excelSheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = excelSheet.iterator();
@@ -76,7 +90,7 @@ public class ImportService {
                 LocalDate expirationDate = LocalDate.parse(dateFormat.format(tempDate));
                 Supplier supplier = suppliersMap.get(nextRow.getCell(6).getStringCellValue());
 
-                if (supplier == null ) {
+                if (supplier == null) {
                     throw new NotExistingOrEmptySupplier(rowCounter);
                 }
 
@@ -88,19 +102,20 @@ public class ImportService {
             throw new RuntimeException("Import file " + excelFilePath + " was stopped by row " + rowCounter + ". ", e);
         }
 
-        return  productList;
+        return productList;
     }
 
     public List<Supplier> saveSupplierFromExcel(String path) {
         List<Supplier> supplierList = excelSupplierImport(path);
-        return supplierService.saveAll(supplierList);
+        // return supplierService.saveAll(supplierList);
+        return supplierRepository.saveAll(supplierList);
     }
 
     public static List<Supplier> excelSupplierImport(String excelFilePath) {
-        List <Supplier> supplierList = new ArrayList<>();
+        List<Supplier> supplierList = new ArrayList<>();
         int rowCounter = 1;
 
-        try(FileInputStream inputStream = new FileInputStream(excelFilePath)) {
+        try (FileInputStream inputStream = new FileInputStream(excelFilePath)) {
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet excelSheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = excelSheet.iterator();
@@ -112,8 +127,8 @@ public class ImportService {
 
                 String providerName = nextRow.getCell(0).getStringCellValue();
                 String returnCondition = nextRow.getCell(1).getStringCellValue();
-                int advanceNotice = (int)nextRow.getCell(2).getNumericCellValue();
-                int discount = (int)nextRow.getCell(3).getNumericCellValue();
+                int advanceNotice = (int) nextRow.getCell(2).getNumericCellValue();
+                int discount = (int) nextRow.getCell(3).getNumericCellValue();
 
                 supplierList.add(new Supplier(providerName, returnCondition, advanceNotice, discount));
             }

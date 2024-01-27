@@ -3,6 +3,7 @@ package ua.okwine.productexpirationdate.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ua.okwine.productexpirationdate.dao.ProductRepository;
+import ua.okwine.productexpirationdate.dao.SupplierRepository;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
 
@@ -12,6 +13,7 @@ import java.util.*;
 @AllArgsConstructor
 public class ProductService {
 
+    private final SupplierRepository supplierRepository;
     private final ProductRepository productRepository;
     private final SupplierService supplierService;
 
@@ -24,7 +26,7 @@ public class ProductService {
     }
 
     public List<Product> findAllWithEmptyImage() {
-        return productRepository.findByImageIsNull();
+      return productRepository.findByImageIsNull();
     }
 
     public Product findById(UUID id) {
