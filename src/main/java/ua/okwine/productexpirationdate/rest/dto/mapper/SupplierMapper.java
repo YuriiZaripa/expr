@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ua.okwine.productexpirationdate.entity.Supplier;
 import ua.okwine.productexpirationdate.rest.dto.SupplierDTO;
+import ua.okwine.productexpirationdate.rest.dto.SupplierWithProductsDTO;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface SupplierMapper {
     SupplierDTO toSupplierDTO(Supplier supplier);
 
     List<SupplierDTO> toListSupplierDTO(List<Supplier> supplierList);
+
+    SupplierWithProductsDTO toSupplierWithProductsDTO(Supplier supplier);
 }
