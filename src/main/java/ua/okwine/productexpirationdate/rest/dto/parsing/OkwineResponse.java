@@ -1,4 +1,4 @@
-package ua.okwine.productexpirationdate.entity.dto.parsing;
+package ua.okwine.productexpirationdate.rest.dto.parsing;
 
 import lombok.Getter;
 import lombok.Setter;

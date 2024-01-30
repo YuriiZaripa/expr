@@ -1,4 +1,4 @@
-package ua.okwine.productexpirationdate.controller;
+package ua.okwine.productexpirationdate.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import ua.okwine.productexpirationdate.entity.Product;
-import ua.okwine.productexpirationdate.entity.Supplier;
+import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
+import ua.okwine.productexpirationdate.rest.dto.SupplierDTO;
 import ua.okwine.productexpirationdate.service.ImportService;
 
 import java.io.IOException;
@@ -25,10 +25,10 @@ public class ImportController {
     private final ImportService importService;
 
     @PostMapping(value = "/importProductFromExcel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public List<Product> productExcelUpload(@RequestParam("upload") MultipartFile file) {
+    public List<ProductDTO> productExcelUpload(@RequestParam("upload") MultipartFile file) {
         String fullPath = null;
         try {
-            fullPath = importService.saveFile( file);
+            fullPath = importService.saveFile(file);
         } catch (IOException e) {
             log.error("Import file " + file.getOriginalFilename() + " was stopped.", e);
 
@@ -38,8 +38,8 @@ public class ImportController {
         return importService.saveProductFromExcel(fullPath);
     }
 
-    @PostMapping(value ="/importSuppliersFromExcel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public List<Supplier> supplierExcelUpload(@RequestPart(value = "upload") MultipartFile file) {
+    @PostMapping(value = "/importSuppliersFromExcel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public List<SupplierDTO> supplierExcelUpload(@RequestPart(value = "upload") MultipartFile file) {
         String fullPath = null;
         try {
             fullPath = importService.saveFile(file);

@@ -1,4 +1,4 @@
-package ua.okwine.productexpirationdate.controller;
+package ua.okwine.productexpirationdate.rest;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.okwine.productexpirationdate.entity.Product;
+import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
+import ua.okwine.productexpirationdate.rest.dto.ProductWithReportedDTO;
+import ua.okwine.productexpirationdate.rest.dto.ProductWithSupplierIdDTO;
 import ua.okwine.productexpirationdate.service.ProductService;
 
 import java.util.List;
@@ -22,17 +24,17 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping()
-    public List<Product> findAllNotReported() {
+    public List<ProductDTO> findAllNotReported() {
         return productService.findAllNotReported();
     }
 
     @GetMapping("/forAllTime")
-    public List<Product> findAllWithReported() {
+    public List<ProductWithReportedDTO> findAllWithReported() {
         return productService.findAllWithReported();
     }
 
     @PostMapping()
-    public Product saveProduct(@RequestBody Product product) {
+    public ProductDTO saveProduct(@RequestBody ProductWithSupplierIdDTO product) {
         return productService.save(product);
     }
 

@@ -49,8 +49,7 @@ public class Product {
     private LocalDate expirationDate;
 
     @JsonIncludeProperties("supplierName")
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
