@@ -3,6 +3,7 @@ package ua.okwine.productexpirationdate.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ua.okwine.productexpirationdate.repository.ProductRepository;
 import ua.okwine.productexpirationdate.rest.dto.parsing.OkwineResponseProductDTO;
 import ua.okwine.productexpirationdate.service.clients.OkwineClient;
 
@@ -17,10 +18,10 @@ public class ParserService {
     private static final String IMAGE_URL_PREFIX = "https://content.okwine.ua/files/";
 
     private final OkwineClient okwineClient;
-    private final ProductService productService;
+    private final ProductRepository productRepository;
 
     public void parsingOkwineData() {
-        var products = productService.findAllWithEmptyImage();
+        var products = productRepository.findByImageIsNull();
         if (products.isEmpty()) {
             log.info("All data up to date. Parsing is stopped.");
 
@@ -44,7 +45,7 @@ public class ParserService {
                     product.setImage(imageURL != null ? IMAGE_URL_PREFIX + imageURL : null);
                 });
 
-        productService.updateAll(products);
+        productRepository.saveAll(products);
         log.info("Starting parsing products from Okwine API");
     }
 }

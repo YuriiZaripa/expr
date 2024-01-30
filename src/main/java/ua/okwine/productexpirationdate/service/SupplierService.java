@@ -8,9 +8,7 @@ import ua.okwine.productexpirationdate.rest.dto.SupplierDTO;
 import ua.okwine.productexpirationdate.rest.dto.SuppliersByReturnConditionTypeDTO;
 import ua.okwine.productexpirationdate.rest.dto.mapper.SupplierMapper;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,11 +26,6 @@ public class SupplierService {
         return supplierMapper.toSupplierDTO(savedSupplier);
     }
 
-    public List<SupplierDTO> saveAll(List<Supplier> suppliers) {
-
-        return supplierMapper.toListSupplierDTO(supplierRepository.saveAll(suppliers));
-    }
-
     public List<SupplierDTO> findAllActive() {
         return supplierMapper.toListSupplierDTO(
                 supplierRepository.findByIsActiveTrueOrderBySupplierName());
@@ -45,17 +38,6 @@ public class SupplierService {
 
     public Optional<SupplierDTO> findById(UUID id) {
         return supplierRepository.findById(id).map(supplierMapper::toSupplierDTO);
-    }
-
-    public Map<String, Supplier> findAllByName() {
-        List<Supplier> suppliers = supplierRepository.findByIsActiveTrueOrderBySupplierName();
-        Map<String, Supplier> suppliersByName = new HashMap<>();
-
-        for (Supplier supplier : suppliers) {
-            suppliersByName.put(supplier.getSupplierName(), supplier);
-        }
-
-        return suppliersByName;
     }
 
     public List<SupplierDTO> findAll() {

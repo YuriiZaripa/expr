@@ -31,18 +31,8 @@ public class ProductService {
         return productMapper.toProductWithReportedDTOList(productRepository.findAll());
     }
 
-    public List<ProductDTO> findAllWithEmptyImage() {
-        return productMapper.toProductDTOList(productRepository.findByImageIsNull());
-    }
-
     public ProductDTO findById(UUID id) {
         return productMapper.toProductDTO(productRepository.getById(id));
-    }
-
-    public List<ProductDTO> findAllNotReportedByAdvanceNotice(String advanceNotice) {
-        var products = productRepository.findAllNotReportedByAdvanceNotice(advanceNotice);
-
-        return productMapper.toProductDTOList(products);
     }
 
     public ProductDTO save(ProductWithSupplierIdDTO product) {
@@ -61,13 +51,5 @@ public class ProductService {
 
     public void deleteById(UUID id) {
         productRepository.deleteById(id);
-    }
-
-    public void deleteAllById(List<UUID> id) {
-        productRepository.deleteAllById(id);
-    }
-
-    public void updateAll(List<ProductDTO> products) {
-        productRepository.saveAll(productMapper.toProductWithIdList(products));
     }
 }

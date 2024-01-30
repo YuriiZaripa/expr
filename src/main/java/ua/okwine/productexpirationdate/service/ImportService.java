@@ -11,8 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.entity.Supplier;
 import ua.okwine.productexpirationdate.exceptions.NotExistingOrEmptySupplier;
+import ua.okwine.productexpirationdate.repository.ProductRepository;
+import ua.okwine.productexpirationdate.repository.SupplierRepository;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
 import ua.okwine.productexpirationdate.rest.dto.SupplierDTO;
+import ua.okwine.productexpirationdate.rest.dto.mapper.ProductMapper;
+import ua.okwine.productexpirationdate.rest.dto.mapper.SupplierMapper;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +37,10 @@ import java.util.Map;
 @Slf4j
 public class ImportService {
 
-    private final ProductService productService;
-    private final SupplierService supplierService;
+    private final ProductRepository productRepository;
+    private final SupplierRepository supplierRepository;
+    private final ProductMapper productMapper;
+    private final SupplierMapper supplierMapper;
 
     public String saveFile(MultipartFile file) throws IOException {
         String uploadDirectoryPath = "src/main/resources/temp_files";
@@ -46,10 +53,21 @@ public class ImportService {
     }
 
     public List<ProductDTO> saveProductFromExcel(String path) {
-        Map<String, Supplier> suppliersMap = supplierService.findAllByName();
+        Map<String, Supplier> suppliersMap = findAllSuppliersByName();
 
         var products = excelProductImport(path, suppliersMap);
-        return productService.saveAll(products);
+        return productMapper.toProductDTOList(productRepository.saveAll(products));
+    }
+
+    private Map<String, Supplier> findAllSuppliersByName() {
+        List<Supplier> suppliers = supplierRepository.findByIsActiveTrueOrderBySupplierName();
+        Map<String, Supplier> suppliersByName = new HashMap<>();
+
+        for (Supplier supplier : suppliers) {
+            suppliersByName.put(supplier.getSupplierName(), supplier);
+        }
+
+        return suppliersByName;
     }
 
     public List<Product> excelProductImport(String excelFilePath, Map<String, Supplier> suppliersMap) {
@@ -98,8 +116,8 @@ public class ImportService {
     }
 
     public List<SupplierDTO> saveSupplierFromExcel(String path) {
-        List<Supplier> supplierList = excelSupplierImport(path);
-        return supplierService.saveAll(supplierList);
+        List<Supplier> suppliers = excelSupplierImport(path);
+        return supplierMapper.toListSupplierDTO(supplierRepository.saveAll(suppliers));
     }
 
     public static List<Supplier> excelSupplierImport(String excelFilePath) {

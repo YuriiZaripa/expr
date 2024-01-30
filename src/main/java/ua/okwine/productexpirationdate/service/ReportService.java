@@ -2,7 +2,9 @@ package ua.okwine.productexpirationdate.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ua.okwine.productexpirationdate.repository.ProductRepository;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
+import ua.okwine.productexpirationdate.rest.dto.mapper.ProductMapper;
 import ua.okwine.productexpirationdate.rest.dto.requestWrappers.ProductRequest;
 import ua.okwine.productexpirationdate.rest.dto.requestWrappers.ProductRequestWrapper;
 
@@ -15,12 +17,17 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ReportService {
 
-    private final ProductService productService;
+    //    private final ProductService productService;
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     public ProductRequestWrapper findAllToDaileReport() {
-        List<ProductDTO> products1 = productService.findAllNotReportedByAdvanceNotice("не забирают возвраты");
-        List<ProductDTO> products2 = productService.findAllNotReportedByAdvanceNotice("физобмен");
-        List<ProductDTO> products3 = productService.findAllNotReportedByAdvanceNotice("");
+        List<ProductDTO> products1 = productMapper
+                .toProductDTOList(productRepository.findAllNotReportedByAdvanceNotice("не забирают возвраты"));
+        List<ProductDTO> products2 = productMapper
+                .toProductDTOList(productRepository.findAllNotReportedByAdvanceNotice("физобмен"));
+        List<ProductDTO> products3 = productMapper
+                .toProductDTOList(productRepository.findAllNotReportedByAdvanceNotice(""));
 
         ProductRequestWrapper productRequestWrapper = new ProductRequestWrapper(
                 toProductRequest(products1),
@@ -46,7 +53,7 @@ public class ReportService {
         productsId.addAll(removeZeroQuantity(requestWrapper.getProductRequestList2()));
         productsId.addAll(removeZeroQuantity(requestWrapper.getProductRequestList3()));
 
-        productService.deleteAllById(productsId);
+        productRepository.deleteAllById(productsId);
     }
 
     private List<UUID> removeZeroQuantity(List<ProductRequest> products) {
@@ -70,7 +77,7 @@ public class ReportService {
         productsId.addAll(removeAllRequests(requestWrapper.getProductRequestList2()));
         productsId.addAll(removeAllRequests(requestWrapper.getProductRequestList3()));
 
-        productService.deleteAllById(productsId);
+        productRepository.deleteAllById(productsId);
     }
 
     private List<UUID> removeAllRequests(List<ProductRequest> products) {
