@@ -1,4 +1,4 @@
-package ua.okwine.productexpirationdate.dao;
+package ua.okwine.productexpirationdate.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.okwine.productexpirationdate.entity.Supplier;

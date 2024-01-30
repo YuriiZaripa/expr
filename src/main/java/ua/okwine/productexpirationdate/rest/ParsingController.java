@@ -1,4 +1,4 @@
-package ua.okwine.productexpirationdate.controller;
+package ua.okwine.productexpirationdate.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

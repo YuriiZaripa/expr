@@ -1,16 +1,14 @@
-package ua.okwine.productexpirationdate.entity.dto;
+package ua.okwine.productexpirationdate.rest.dto;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class SupplierDTO {
 
     private UUID supplierId;

@@ -1,6 +1,5 @@
 package ua.okwine.productexpirationdate.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +44,6 @@ public class Supplier {
     @Column(name = "is_active")
     private boolean isActive = true;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "supplier",
             cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
@@ -57,9 +54,5 @@ public class Supplier {
         this.returnCondition = returnCondition;
         this.advanceNotice = advanceNotice;
         this.discount = discount;
-    }
-
-    public void addProduct(Product product) {
-        this.products.add(product);
     }
 }

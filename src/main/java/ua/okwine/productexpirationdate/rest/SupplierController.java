@@ -1,4 +1,4 @@
-package ua.okwine.productexpirationdate.controller;
+package ua.okwine.productexpirationdate.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.okwine.productexpirationdate.entity.dto.SupplierDTO;
-import ua.okwine.productexpirationdate.entity.dto.SuppliersByReturnConditionTypeDTO;
+import ua.okwine.productexpirationdate.rest.dto.SupplierDTO;
+import ua.okwine.productexpirationdate.rest.dto.SuppliersByReturnConditionTypeDTO;
 import ua.okwine.productexpirationdate.service.SupplierService;
 
 import java.util.List;
@@ -49,13 +49,8 @@ public class SupplierController {
     }
 
     @PostMapping()
-    public SupplierDTO saveSupplier(@RequestBody SupplierDTO supplierDTO) {
+    public SupplierDTO save(@RequestBody SupplierDTO supplierDTO) {
         return supplierService.save(supplierDTO);
-    }
-
-    @PostMapping("/all")
-    public List<SupplierDTO> saveAllSupplier(@RequestBody List<SupplierDTO> supplierDTOList) {
-        return supplierService.saveAll(supplierDTOList);
     }
 
     @DeleteMapping("/{id}")

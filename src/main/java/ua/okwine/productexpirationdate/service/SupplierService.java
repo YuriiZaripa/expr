@@ -2,11 +2,11 @@ package ua.okwine.productexpirationdate.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ua.okwine.productexpirationdate.dao.SupplierRepository;
-import ua.okwine.productexpirationdate.entity.dto.SupplierDTO;
-import ua.okwine.productexpirationdate.entity.dto.SupplierMapper;
 import ua.okwine.productexpirationdate.entity.Supplier;
-import ua.okwine.productexpirationdate.entity.dto.SuppliersByReturnConditionTypeDTO;
+import ua.okwine.productexpirationdate.repository.SupplierRepository;
+import ua.okwine.productexpirationdate.rest.dto.SupplierDTO;
+import ua.okwine.productexpirationdate.rest.dto.SuppliersByReturnConditionTypeDTO;
+import ua.okwine.productexpirationdate.rest.dto.mapper.SupplierMapper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,31 +22,29 @@ public class SupplierService {
     private final SupplierRepository supplierRepository;
 
     public SupplierDTO save(SupplierDTO supplierDTO) {
-        Supplier supplierEntity = supplierMapper.mapToSupplier(supplierDTO);
+        Supplier supplierEntity = supplierMapper.toSupplier(supplierDTO);
         Supplier savedSupplier = supplierRepository.save(supplierEntity);
 
-        return supplierMapper.mapToSupplierDTO(savedSupplier);
+        return supplierMapper.toSupplierDTO(savedSupplier);
     }
 
-    public List<SupplierDTO> saveAll(List<SupplierDTO> supplierDTOList) {
-        List<Supplier> supplierEntities = supplierMapper.mapToListSupplier(supplierDTOList);
-        List<Supplier> savedSuppliers = supplierRepository.saveAll(supplierEntities);
+    public List<SupplierDTO> saveAll(List<Supplier> suppliers) {
 
-        return supplierMapper.mapToListSupplierDTO(savedSuppliers);
+        return supplierMapper.toListSupplierDTO(supplierRepository.saveAll(suppliers));
     }
 
     public List<SupplierDTO> findAllActive() {
-        return supplierMapper.mapToListSupplierDTO(
+        return supplierMapper.toListSupplierDTO(
                 supplierRepository.findByIsActiveTrueOrderBySupplierName());
     }
 
     public List<SupplierDTO> findAllWithNotActive() {
-        return supplierMapper.mapToListSupplierDTO(
+        return supplierMapper.toListSupplierDTO(
                 supplierRepository.findAllByOrderBySupplierNameAsc());
     }
 
     public Optional<SupplierDTO> findById(UUID id) {
-        return supplierRepository.findById(id).map(supplierMapper::mapToSupplierDTO);
+        return supplierRepository.findById(id).map(supplierMapper::toSupplierDTO);
     }
 
     public Map<String, Supplier> findAllByName() {
@@ -61,7 +59,7 @@ public class SupplierService {
     }
 
     public List<SupplierDTO> findAll() {
-        return supplierMapper.mapToListSupplierDTO(supplierRepository.findAllByOrderBySupplierNameAsc());
+        return supplierMapper.toListSupplierDTO(supplierRepository.findAllByOrderBySupplierNameAsc());
     }
 
     public void deleteById(UUID id) {
@@ -77,9 +75,9 @@ public class SupplierService {
                 .findByReturnConditionAndIsActiveTrueOrderBySupplierName("");
 
         return SuppliersByReturnConditionTypeDTO.builder()
-                .exchange(supplierMapper.mapToListSupplierDTO(exchangeNotice))
-                .writeOff(supplierMapper.mapToListSupplierDTO(writeOffNotice))
-                .regular(supplierMapper.mapToListSupplierDTO(regularNotice))
+                .exchange(supplierMapper.toListSupplierDTO(exchangeNotice))
+                .writeOff(supplierMapper.toListSupplierDTO(writeOffNotice))
+                .regular(supplierMapper.toListSupplierDTO(regularNotice))
                 .build();
     }
 }

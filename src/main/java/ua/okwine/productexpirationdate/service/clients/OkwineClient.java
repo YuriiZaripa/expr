@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
-import ua.okwine.productexpirationdate.entity.dto.parsing.OkwineResponse;
-import ua.okwine.productexpirationdate.entity.dto.parsing.OkwineResponseProductDTO;
+import ua.okwine.productexpirationdate.rest.dto.parsing.OkwineResponse;
+import ua.okwine.productexpirationdate.rest.dto.parsing.OkwineResponseProductDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +26,10 @@ public class OkwineClient {
         int maxPage = okwineResponseBody.getData().getMaxPage();
         int pageNumber = 1;
         String requestURITemplate = OKWINE_SOURCE_URL + PAGE;
-        List<OkwineResponseProductDTO>  products = new ArrayList<>();
+        List<OkwineResponseProductDTO> products = new ArrayList<>();
 
         log.info("Starting downloading products from Okwine API");
-        while(pageNumber <= maxPage) {
+        while (pageNumber <= maxPage) {
             try {
                 log.info("Parsing Okwine API on page " + pageNumber);
                 data = okwineSource.getForEntity(requestURITemplate + pageNumber, OkwineResponse.class);

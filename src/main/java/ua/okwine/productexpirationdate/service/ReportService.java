@@ -2,9 +2,9 @@ package ua.okwine.productexpirationdate.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ua.okwine.productexpirationdate.entity.Product;
-import ua.okwine.productexpirationdate.requestWrappers.ProductRequest;
-import ua.okwine.productexpirationdate.requestWrappers.ProductRequestWrapper;
+import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
+import ua.okwine.productexpirationdate.rest.dto.requestWrappers.ProductRequest;
+import ua.okwine.productexpirationdate.rest.dto.requestWrappers.ProductRequestWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,9 @@ public class ReportService {
     private final ProductService productService;
 
     public ProductRequestWrapper findAllToDaileReport() {
-        List<Product> products1 = productService.findAllNotReportedByAdvanceNotice("не забирают возвраты");
-        List<Product> products2 = productService.findAllNotReportedByAdvanceNotice("физобмен");
-        List<Product> products3 = productService.findAllNotReportedByAdvanceNotice("");
+        List<ProductDTO> products1 = productService.findAllNotReportedByAdvanceNotice("не забирают возвраты");
+        List<ProductDTO> products2 = productService.findAllNotReportedByAdvanceNotice("физобмен");
+        List<ProductDTO> products3 = productService.findAllNotReportedByAdvanceNotice("");
 
         ProductRequestWrapper productRequestWrapper = new ProductRequestWrapper(
                 toProductRequest(products1),
@@ -31,10 +31,10 @@ public class ReportService {
         return productRequestWrapper;
     }
 
-    private List<ProductRequest> toProductRequest(List<Product> products) {
+    private List<ProductRequest> toProductRequest(List<ProductDTO> products) {
         List<ProductRequest> productRequests = new ArrayList<>();
 
-        for (Product product : products) {
+        for (ProductDTO product : products) {
             productRequests.add(new ProductRequest(product));
         }
 
@@ -53,16 +53,16 @@ public class ReportService {
         List<UUID> productsId = new ArrayList<>();
 
         ListIterator<ProductRequest> productsIterator = products.listIterator();
-        while(productsIterator.hasNext()) {
+        while (productsIterator.hasNext()) {
             ProductRequest product = productsIterator.next();
 
-            if(product.getQuantity() == 0) {
+            if (product.getQuantity() == 0) {
                 productsId.add(product.getProduct().getId());
                 productsIterator.remove();
             }
         }
 
-        return  productsId;
+        return productsId;
     }
 
     public void deleteAll(ProductRequestWrapper requestWrapper) {
@@ -77,12 +77,12 @@ public class ReportService {
         List<UUID> productsId = new ArrayList<>();
 
         ListIterator<ProductRequest> productsIterator = products.listIterator();
-        while(productsIterator.hasNext()) {
+        while (productsIterator.hasNext()) {
             ProductRequest productReport = productsIterator.next();
             productsId.add(productReport.getProduct().getId());
             productsIterator.remove();
         }
 
-        return  productsId;
+        return productsId;
     }
 }
