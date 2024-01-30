@@ -20,7 +20,6 @@ public interface ProductMapper {
     @Mapping(target = "supplier", ignore = true)
     Product toProduct(ProductWithSupplierIdDTO productDto);
 
-
     @Mapping(target = "supplier", source = "product.supplier.supplierName")
     ProductDTO toProductDTO(Product product);
 
@@ -30,6 +29,4 @@ public interface ProductMapper {
     ProductWithReportedDTO toProductWithReportedDTO(Product product);
 
     List<ProductWithReportedDTO> toProductWithReportedDTOList(List<Product> products);
-
-    List<Product> toProductWithIdList(List<ProductDTO> products);
 }
