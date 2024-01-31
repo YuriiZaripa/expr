@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -48,8 +49,7 @@ public class Product {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expirationDate;
 
-    @JsonIncludeProperties("supplierName")
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
