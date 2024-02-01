@@ -16,5 +16,4 @@ public class SupplierDTO {
     private String returnCondition;
     private int advanceNotice;
     private int discount;
-
 }

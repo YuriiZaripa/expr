@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @Builder
 public class SuppliersByReturnConditionTypeDTO {
+
     private List<SupplierDTO> exchange;
     private List<SupplierDTO> writeOff;
     private List<SupplierDTO> regular;

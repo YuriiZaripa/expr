@@ -30,7 +30,7 @@ public class Supplier {
     @Column(name = "supplier_id")
     private UUID supplierId;
 
-    @Column(name = "supplier_name")
+    @Column(name = "supplier_name", unique = true)
     private String supplierName;
 
     @Column(name = "return_condition")
@@ -47,7 +47,7 @@ public class Supplier {
 
     @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private List<Product> products = new ArrayList<>();
+    private List<Sku> sku = new ArrayList<>();
 
     public Supplier(String supplierName, String returnCondition, int advanceNotice,
                     int discount) {

@@ -3,7 +3,7 @@ package ua.okwine.productexpirationdate.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ua.okwine.productexpirationdate.repository.ProductRepository;
+import ua.okwine.productexpirationdate.repository.SkuRepository;
 import ua.okwine.productexpirationdate.rest.dto.parsing.OkwineResponseProductDTO;
 import ua.okwine.productexpirationdate.service.clients.OkwineClient;
 
@@ -18,16 +18,16 @@ public class ParserService {
     private static final String IMAGE_URL_PREFIX = "https://content.okwine.ua/files/";
 
     private final OkwineClient okwineClient;
-    private final ProductRepository productRepository;
+    private final SkuRepository skuRepository;
 
     public void parsingOkwineData() {
-        var products = productRepository.findByImageIsNull();
-        if (products.isEmpty()) {
+        var sku = skuRepository.findByImageIsNull();
+        if (sku.isEmpty()) {
             log.info("All data up to date. Parsing is stopped.");
 
             return;
         }
-        log.info("Starting parsing products from Okwine API");
+        log.info("Starting parsing sku from Okwine API");
 
         var productsFromAPI = okwineClient.getAllProductsData();
 
@@ -38,14 +38,14 @@ public class ParserService {
                                 : product.getImages().get(0).trim(),
                         (existing, replacement) -> existing));
 
-        products.stream()
+        sku.stream()
                 .forEach(product -> {
                     String imageURL = utpImageMap.getOrDefault(product.getVendorCode(), null);
 
                     product.setImage(imageURL != null ? IMAGE_URL_PREFIX + imageURL : null);
                 });
 
-        productRepository.saveAll(products);
-        log.info("Starting parsing products from Okwine API");
+        skuRepository.saveAll(sku);
+        log.info("Starting parsing sku from Okwine API");
     }
 }

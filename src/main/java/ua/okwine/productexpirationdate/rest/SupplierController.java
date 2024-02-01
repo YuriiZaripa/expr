@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.okwine.productexpirationdate.rest.dto.SupplierDTO;
-import ua.okwine.productexpirationdate.rest.dto.SupplierWithProductsDTO;
+import ua.okwine.productexpirationdate.rest.dto.SupplierWithSkusDTO;
 import ua.okwine.productexpirationdate.rest.dto.SuppliersByReturnConditionTypeDTO;
 import ua.okwine.productexpirationdate.service.SupplierService;
 
@@ -36,8 +36,8 @@ public class SupplierController {
     }
 
     @GetMapping("/{id}/details")
-    public Optional<SupplierWithProductsDTO> findByIdWithProducts(@PathVariable UUID id) {
-        return supplierService.findByIdWithProducts(id);
+    public Optional<SupplierWithSkusDTO> findByIdWithSkus(@PathVariable UUID id) {
+        return supplierService.findByIdWithSku(id);
     }
 
     public List<SupplierDTO> findAllActive() {

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
 
 @Getter

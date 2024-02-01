@@ -12,14 +12,10 @@ import java.util.UUID;
 public class ProductWithReportedDTO {
 
     private UUID id;
-    private String vendorCode;
-    private String barCode;
-    private String productName;
+    private SkuDTO sku;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate produced;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expirationDate;
-    private String supplier;
-    private String image;
     private boolean isReported;
 }

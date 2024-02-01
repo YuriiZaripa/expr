@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ua.okwine.productexpirationdate.entity.Supplier;
 import ua.okwine.productexpirationdate.repository.SupplierRepository;
 import ua.okwine.productexpirationdate.rest.dto.SupplierDTO;
-import ua.okwine.productexpirationdate.rest.dto.SupplierWithProductsDTO;
+import ua.okwine.productexpirationdate.rest.dto.SupplierWithSkusDTO;
 import ua.okwine.productexpirationdate.rest.dto.SuppliersByReturnConditionTypeDTO;
 import ua.okwine.productexpirationdate.rest.dto.mapper.SupplierMapper;
 
@@ -41,7 +41,7 @@ public class SupplierService {
         return supplierRepository.findById(id).map(supplierMapper::toSupplierDTO);
     }
 
-    public Optional<SupplierWithProductsDTO> findByIdWithProducts(UUID id) {
+    public Optional<SupplierWithSkusDTO> findByIdWithSku(UUID id) {
         return supplierRepository.findById(id).map(supplierMapper::toSupplierWithProductsDTO);
     }
 

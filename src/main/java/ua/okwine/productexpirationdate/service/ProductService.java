@@ -2,13 +2,13 @@ package ua.okwine.productexpirationdate.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ua.okwine.productexpirationdate.entity.Product;
-import ua.okwine.productexpirationdate.exceptions.NotExistingOrEmptySupplier;
+import ua.okwine.productexpirationdate.exceptions.NotExistingSkuException;
 import ua.okwine.productexpirationdate.repository.ProductRepository;
+import ua.okwine.productexpirationdate.repository.SkuRepository;
 import ua.okwine.productexpirationdate.repository.SupplierRepository;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithReportedDTO;
-import ua.okwine.productexpirationdate.rest.dto.ProductWithSupplierIdDTO;
+import ua.okwine.productexpirationdate.rest.dto.ProductWithSkuIdDTO;
 import ua.okwine.productexpirationdate.rest.dto.mapper.ProductMapper;
 
 import java.util.List;
@@ -19,7 +19,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ProductService {
 
-    private SupplierRepository supplierRepository;
+    private final SupplierRepository supplierRepository;
+    private final SkuRepository skuRepository;
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
@@ -35,18 +36,13 @@ public class ProductService {
         return productMapper.toProductDTO(productRepository.getById(id));
     }
 
-    public ProductDTO save(ProductWithSupplierIdDTO product) {
+    public ProductDTO save(ProductWithSkuIdDTO product) {
         var productEntity = productMapper.toProduct(product);
-        productEntity.setSupplier(supplierRepository.findById(product.getSupplier())
-                .orElseThrow(() -> new NotExistingOrEmptySupplier(product.getSupplier()))
+        productEntity.setSku(skuRepository.findById(product.getSku())
+                .orElseThrow(() -> new NotExistingSkuException(product.getSku()))
         );
 
         return productMapper.toProductDTO(productRepository.save(productEntity));
-    }
-
-    public List<ProductDTO> saveAll(List<Product> products) {
-
-        return productMapper.toProductDTOList(productRepository.saveAll(products));
     }
 
     public void deleteById(UUID id) {

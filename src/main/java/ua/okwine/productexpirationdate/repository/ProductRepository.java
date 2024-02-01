@@ -13,10 +13,9 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     @Query("SELECT p FROM Product p " +
             "WHERE p.expirationDate <= current_date " +
             "AND p.isReported = false " +
-            "AND p.supplier.returnCondition = :type")
+            "AND p.sku.supplier.returnCondition = :type")
     List<Product> findAllNotReportedByAdvanceNotice(@Param("type") String type);
 
     List<Product> findByIsReportedFalse();
 
-    List<Product> findByImageIsNull();
 }
