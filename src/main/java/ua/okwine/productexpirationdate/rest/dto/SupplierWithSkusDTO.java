@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class SupplierWithProductsDTO {
+public class SupplierWithSkusDTO {
 
     private UUID supplierId;
     private String supplierName;
@@ -16,5 +16,5 @@ public class SupplierWithProductsDTO {
     private int advanceNotice;
     private int discount;
     private boolean isActive;
-    private List<ProductDTO> products;
+    private List<SkuDTO> sku;
 }

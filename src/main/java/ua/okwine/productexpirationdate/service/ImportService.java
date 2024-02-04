@@ -9,9 +9,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ua.okwine.productexpirationdate.entity.Product;
+import ua.okwine.productexpirationdate.entity.Sku;
 import ua.okwine.productexpirationdate.entity.Supplier;
-import ua.okwine.productexpirationdate.exceptions.NotExistingOrEmptySupplier;
+import ua.okwine.productexpirationdate.exceptions.NotExistingOrEmptySupplierException;
 import ua.okwine.productexpirationdate.repository.ProductRepository;
+import ua.okwine.productexpirationdate.repository.SkuRepository;
 import ua.okwine.productexpirationdate.repository.SupplierRepository;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
 import ua.okwine.productexpirationdate.rest.dto.SupplierDTO;
@@ -26,11 +28,14 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -39,6 +44,7 @@ public class ImportService {
 
     private final ProductRepository productRepository;
     private final SupplierRepository supplierRepository;
+    private final SkuRepository skuRepository;
     private final ProductMapper productMapper;
     private final SupplierMapper supplierMapper;
 
@@ -88,9 +94,22 @@ public class ImportService {
                 tempDate = null;
                 LocalDate produced = null;
 
-                String vendorCode = nextRow.getCell(1).getStringCellValue();
-                String barCode = nextRow.getCell(2).getStringCellValue().trim();
                 String productName = nextRow.getCell(3).getStringCellValue();
+                Sku sku = skuRepository.findByTitle(productName).orElse(null);
+
+                if (sku == null) {
+                    Supplier supplier = suppliersMap.get(nextRow.getCell(6).getStringCellValue());
+                    if (supplier == null) {
+                        throw new NotExistingOrEmptySupplierException(rowCounter);
+                    }
+
+                    sku = skuRepository.save(new Sku(
+                            nextRow.getCell(1).getStringCellValue(),
+                            parseBarCode(nextRow.getCell(2).getStringCellValue().trim()),
+                            productName,
+                            supplier
+                    ));
+                }
                 tempDate = nextRow.getCell(4).getDateCellValue();
                 if (tempDate != null) {
                     produced = LocalDate.parse(dateFormat.format(tempDate));
@@ -98,14 +117,9 @@ public class ImportService {
 
                 tempDate = nextRow.getCell(5).getDateCellValue();
                 LocalDate expirationDate = LocalDate.parse(dateFormat.format(tempDate));
-                Supplier supplier = suppliersMap.get(nextRow.getCell(6).getStringCellValue());
 
-                if (supplier == null) {
-                    throw new NotExistingOrEmptySupplier(rowCounter);
-                }
 
-                productList.add(new Product(vendorCode, barCode, productName,
-                        produced, expirationDate, supplier));
+                productList.add(new Product(sku, produced, expirationDate));
             }
         } catch (IOException e) {
             log.error("Import file " + excelFilePath + " was stopped by row " + rowCounter + ". ", e);
@@ -113,6 +127,28 @@ public class ImportService {
         }
 
         return productList;
+    }
+
+    private Set<String> parseBarCode(String data) {
+        if (data == null) {
+            return Collections.emptySet();
+        }
+        if (!data.matches("[0-9/]+") || !data.contains("/")) {
+            return Set.of(data);
+        }
+
+        Set<String> barcodes = new HashSet<>();
+        var separatedData = data.split("/");
+        var pivot = separatedData[0];
+        var barcodeLength = pivot.length();
+
+        for (int i = 1; i < separatedData.length; i++) {
+            String next = separatedData[i];
+            String barcode = pivot.substring(0, barcodeLength - next.length()) + next;
+            barcodes.add(barcode);
+        }
+
+        return barcodes;
     }
 
     public List<SupplierDTO> saveSupplierFromExcel(String path) {

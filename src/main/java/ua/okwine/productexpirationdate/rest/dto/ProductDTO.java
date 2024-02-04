@@ -11,14 +11,10 @@ import java.util.UUID;
 @Setter
 public class ProductDTO {
 
-        private UUID id;
-        private String vendorCode;
-        private String barCode;
-        private String productName;
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        private LocalDate produced;
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        private LocalDate expirationDate;
-        private String supplier;
-        private String image;
+    private UUID id;
+    private SkuDTO sku;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate produced;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate expirationDate;
 }

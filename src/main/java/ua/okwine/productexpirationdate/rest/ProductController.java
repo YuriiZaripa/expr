@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithReportedDTO;
-import ua.okwine.productexpirationdate.rest.dto.ProductWithSupplierIdDTO;
+import ua.okwine.productexpirationdate.rest.dto.ProductWithSkuIdDTO;
 import ua.okwine.productexpirationdate.service.ProductService;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ProductDTO saveProduct(@RequestBody ProductWithSupplierIdDTO product) {
+    public ProductDTO saveProduct(@RequestBody ProductWithSkuIdDTO product) {
         return productService.save(product);
     }
 

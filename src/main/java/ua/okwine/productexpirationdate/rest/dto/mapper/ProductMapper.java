@@ -5,27 +5,24 @@ import org.mapstruct.Mapping;
 import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithReportedDTO;
-import ua.okwine.productexpirationdate.rest.dto.ProductWithSupplierIdDTO;
+import ua.okwine.productexpirationdate.rest.dto.ProductWithSkuIdDTO;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {SupplierMapper.class})
+@Mapper(componentModel = "spring", uses = {SkuMapper.class})
 public interface ProductMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "supplier", ignore = true)
     Product toProduct(ProductDTO productDto);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "supplier", ignore = true)
-    Product toProduct(ProductWithSupplierIdDTO productDto);
-
-    @Mapping(target = "supplier", source = "product.supplier.supplierName")
+    @Mapping(target = "sku", ignore = true)
+    Product toProduct(ProductWithSkuIdDTO productDto);
+    
     ProductDTO toProductDTO(Product product);
 
     List<ProductDTO> toProductDTOList(List<Product> products);
 
-    @Mapping(target = "supplier", source = "product.supplier.supplierName")
     ProductWithReportedDTO toProductWithReportedDTO(Product product);
 
     List<ProductWithReportedDTO> toProductWithReportedDTOList(List<Product> products);
