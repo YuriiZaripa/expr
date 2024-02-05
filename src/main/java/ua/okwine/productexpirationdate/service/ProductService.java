@@ -9,6 +9,7 @@ import ua.okwine.productexpirationdate.repository.SupplierRepository;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithReportedDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithSkuIdDTO;
+import ua.okwine.productexpirationdate.rest.dto.ProductWithSupplierDTO;
 import ua.okwine.productexpirationdate.rest.dto.mapper.ProductMapper;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    public List<ProductDTO> findAllNotReported() {
-        return productMapper.toProductDTOList(productRepository.findByIsReportedFalse());
+    public List<ProductWithSupplierDTO> findAllNotReported() {
+        return productMapper.toProductWithSupplierListDTO(productRepository.findByIsReportedFalse());
     }
 
     public List<ProductWithReportedDTO> findAllWithReported() {

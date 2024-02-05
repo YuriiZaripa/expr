@@ -6,6 +6,7 @@ import ua.okwine.productexpirationdate.entity.Product;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithReportedDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithSkuIdDTO;
+import ua.okwine.productexpirationdate.rest.dto.ProductWithSupplierDTO;
 
 import java.util.List;
 
@@ -18,8 +19,12 @@ public interface ProductMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "sku", ignore = true)
     Product toProduct(ProductWithSkuIdDTO productDto);
-    
+
     ProductDTO toProductDTO(Product product);
+
+    ProductWithSupplierDTO toProductWithSupplierDTO(Product product);
+
+    List<ProductWithSupplierDTO> toProductWithSupplierListDTO(List<Product> product);
 
     List<ProductDTO> toProductDTOList(List<Product> products);
 
