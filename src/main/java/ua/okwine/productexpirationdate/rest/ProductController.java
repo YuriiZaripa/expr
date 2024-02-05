@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithReportedDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithSkuIdDTO;
+import ua.okwine.productexpirationdate.rest.dto.ProductWithSupplierDTO;
 import ua.okwine.productexpirationdate.service.ProductService;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping()
-    public List<ProductDTO> findAllNotReported() {
+    public List<ProductWithSupplierDTO> findAllNotReported() {
         return productService.findAllNotReported();
     }
 

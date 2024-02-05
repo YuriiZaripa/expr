@@ -4,6 +4,8 @@ server:
     context-path: /product-expiration-date/api/v1
 
 spring:
+  main:
+    allow-circular-references: true
   output:
     ansi:
       enabled: ALWAYS
