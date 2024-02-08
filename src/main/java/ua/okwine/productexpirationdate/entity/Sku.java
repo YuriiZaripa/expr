@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -49,6 +50,9 @@ public class Sku {
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private OkwineStockBalance stockBalance;
 
     public Sku(String vendorCode, Set<String> barCode, String title, Supplier supplier) {
         this.vendorCode = vendorCode;

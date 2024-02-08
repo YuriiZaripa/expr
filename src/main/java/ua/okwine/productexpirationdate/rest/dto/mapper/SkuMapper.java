@@ -12,12 +12,15 @@ import ua.okwine.productexpirationdate.rest.dto.SkuWithSupplierIdDTO;
 public interface SkuMapper {
 
     @Mapping(target = "supplier", source = "sku.supplier.supplierName")
+    @Mapping(target = "stockBalance", source = "sku.stockBalance.stockBalance")
     SkuDTO toSkuDTO(Sku sku);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "supplier", ignore = true)
+    @Mapping(target = "stockBalance", ignore = true)
     Sku toSku(SkuDTO sku);
 
+    @Mapping(target = "stockBalance", source = "sku.stockBalance.stockBalance")
     SkuWithSupplierDTO toSkuWithSupplierDTO(Sku sku);
 
     @Mapping(target = "id", ignore = true)

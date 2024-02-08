@@ -17,4 +17,9 @@ public class ParsingController {
     public void okwineAPIParsing() {
         parserService.parsingOkwineData();
     }
+
+    @GetMapping("/importBalances")
+    public void updateStockBalances() {
+        parserService.updateSockBalance();
+    }
 }

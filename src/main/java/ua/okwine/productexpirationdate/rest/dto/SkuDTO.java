@@ -16,4 +16,5 @@ public class SkuDTO {
     private String title;
     private String image;
     private String supplier;
+    private Integer stockBalance;
 }

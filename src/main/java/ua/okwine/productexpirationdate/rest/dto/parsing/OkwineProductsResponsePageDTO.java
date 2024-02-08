@@ -2,15 +2,13 @@ package ua.okwine.productexpirationdate.rest.dto.parsing;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
 @Getter
 @Setter
-@ToString
-public class OkwineResponsePageDTO {
+public class OkwineProductsResponsePageDTO {
 
     private int maxPage;
-    private List<OkwineResponseProductDTO> data;
+    private List<OkwineProductsResponseSingleProductDTO> data;
 }
