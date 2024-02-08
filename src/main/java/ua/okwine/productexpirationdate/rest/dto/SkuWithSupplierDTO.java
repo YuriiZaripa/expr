@@ -16,4 +16,5 @@ public class SkuWithSupplierDTO {
     private String title;
     private String image;
     private SupplierDTO supplier;
+    private Integer stockBalance;
 }

@@ -2,15 +2,13 @@ package ua.okwine.productexpirationdate.rest.dto.parsing;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
 @Getter
 @Setter
-@ToString
-public class OkwineResponseProductDTO {
+public class OkwineDataResiduesResponseDTO {
 
-    private List<String> images;
-    private String utp;
+    private String pr_id;
+    private List<OkwineMarketResiduesResponseDTO> markets;
 }
