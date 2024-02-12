@@ -1,12 +1,9 @@
 package ua.okwine.productexpirationdate.rest.dto.report;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.okwine.productexpirationdate.rest.dto.ProductDTO;
-import ua.okwine.productexpirationdate.rest.dto.requestWrappers.ProductRequest;
+import ua.okwine.productexpirationdate.rest.dto.ProductWithSupplierDTO;
 
 import java.util.List;
 
@@ -15,8 +12,8 @@ import java.util.List;
 @Builder
 public class ReportInfoDTO {
 
-    private List<ProductDTO> exchange;
-    private List<ProductDTO> writeOff;
-    private List<ProductDTO> regular;
+    private List<ProductWithSupplierDTO> exchange;
+    private List<ProductWithSupplierDTO> writeOff;
+    private List<ProductWithSupplierDTO> regular;
 
 }

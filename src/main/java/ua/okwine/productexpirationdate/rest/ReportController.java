@@ -8,13 +8,13 @@ import ua.okwine.productexpirationdate.rest.dto.report.ReportInfoDTO;
 import ua.okwine.productexpirationdate.service.ReportService;
 
 @RestController
-@RequestMapping("/report")
+@RequestMapping("/reports")
 @AllArgsConstructor
 public class ReportController {
 
     private final ReportService reportService;
 
-    @GetMapping("/dailyReports")
+    @GetMapping("/daily")
     public ReportInfoDTO findAllRoDailyReport() {
         return reportService.findAllToDaileReport();
     }
