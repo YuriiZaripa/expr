@@ -2,11 +2,13 @@ package ua.okwine.productexpirationdate.rest.dto.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.context.annotation.Lazy;
+import org.mapstruct.MappingTarget;
 import ua.okwine.productexpirationdate.entity.Sku;
 import ua.okwine.productexpirationdate.rest.dto.SkuDTO;
 import ua.okwine.productexpirationdate.rest.dto.SkuWithSupplierDTO;
 import ua.okwine.productexpirationdate.rest.dto.SkuWithSupplierIdDTO;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {SupplierMapper.class})
 public interface SkuMapper {
@@ -26,4 +28,10 @@ public interface SkuMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "supplier", ignore = true)
     Sku toSku(SkuWithSupplierIdDTO sku);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "supplier", ignore = true)
+    void updateSkuFromDTO(@MappingTarget Sku sku, SkuWithSupplierIdDTO skuWithSupplierIdDTO);
+
+    List<SkuDTO> toListSkuDTO(List<Sku> all);
 }
