@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ua.okwine.productexpirationdate.entity.Sku;
 import ua.okwine.productexpirationdate.entity.Supplier;
-import ua.okwine.productexpirationdate.exceptions.NotExistedSupplierId;
+import ua.okwine.productexpirationdate.exceptions.NotExistingSupplierId;
 import ua.okwine.productexpirationdate.repository.SkuRepository;
 import ua.okwine.productexpirationdate.repository.SupplierRepository;
 import ua.okwine.productexpirationdate.rest.dto.SkuDTO;
@@ -25,22 +25,20 @@ public class SkuService {
 
     public SkuDTO create(SkuWithSupplierIdDTO skuWithSupplierIdDTO) {
         Sku skuEntity = skuMapper.toSku(skuWithSupplierIdDTO);
-        Supplier supplier = supplierRepository.findById(skuWithSupplierIdDTO.getSupplier()).orElseThrow();
-        skuEntity.setSupplier(supplier);
-        Sku saveSku = skuRepository.save(skuEntity);
+        Supplier supplier = supplierRepository.findById(skuWithSupplierIdDTO.getSupplier())
+                .orElseThrow(() -> new NotExistingSupplierId("Supplier not found with id: " + skuWithSupplierIdDTO.getSupplier()));
 
-        return skuMapper.toSkuDTO(saveSku);
+        return skuMapper.toSkuDTO(skuRepository.save(skuEntity));
     }
 
     public SkuDTO update(UUID id, SkuWithSupplierIdDTO skuWithSupplierIdDTO) {
         Sku existingSku = skuRepository.findById(id).orElseThrow();
         Supplier supplier = supplierRepository.findById(skuWithSupplierIdDTO.getSupplier()).
-                orElseThrow(() -> new NotExistedSupplierId("Supplier not found with id: " + skuWithSupplierIdDTO.getSupplier()));
+                orElseThrow(() -> new NotExistingSupplierId("Supplier not found with id: " + skuWithSupplierIdDTO.getSupplier()));
         skuMapper.updateSkuFromDTO(existingSku, skuWithSupplierIdDTO);
         existingSku.setSupplier(supplier);
-        Sku updatedSku = skuRepository.save(existingSku);
 
-        return skuMapper.toSkuDTO(updatedSku);
+        return skuMapper.toSkuDTO(skuRepository.save(existingSku));
     }
 
     public Optional<SkuDTO> findById(UUID id) {
