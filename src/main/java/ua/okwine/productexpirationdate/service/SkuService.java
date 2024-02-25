@@ -24,11 +24,13 @@ public class SkuService {
     private final SkuMapper skuMapper;
 
     public SkuDTO create(SkuWithSupplierIdDTO skuWithSupplierIdDTO) {
-        Sku skuEntity = skuMapper.toSku(skuWithSupplierIdDTO);
+        Sku sku = skuMapper.toSku(skuWithSupplierIdDTO);
         Supplier supplier = supplierRepository.findById(skuWithSupplierIdDTO.getSupplier())
                 .orElseThrow(() -> new NotExistingSupplierId(skuWithSupplierIdDTO.getSupplier()));
+        sku.setSupplier(supplier);
+        Sku saveSku = skuRepository.save(sku);
 
-        return skuMapper.toSkuDTO(skuRepository.save(skuEntity));
+        return skuMapper.toSkuDTO(skuRepository.save(saveSku));
     }
 
     public SkuDTO update(UUID id, SkuWithSupplierIdDTO skuWithSupplierIdDTO) {
