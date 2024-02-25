@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class NotExistingSkuException extends RuntimeException {
 
-    public NotExistingSkuException(UUID skuId) {
-        super("Not existing supplier by id  " + skuId + ".");
+    public NotExistingSkuException(UUID id) {
+        super("Not existing sku by id  " + id + ".");
     }
 }
