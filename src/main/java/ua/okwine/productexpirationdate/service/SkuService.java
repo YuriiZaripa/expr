@@ -26,7 +26,7 @@ public class SkuService {
     public SkuDTO create(SkuWithSupplierIdDTO skuWithSupplierIdDTO) {
         Sku skuEntity = skuMapper.toSku(skuWithSupplierIdDTO);
         Supplier supplier = supplierRepository.findById(skuWithSupplierIdDTO.getSupplier())
-                .orElseThrow(() -> new NotExistingSupplierId("Supplier not found with id: " + skuWithSupplierIdDTO.getSupplier()));
+                .orElseThrow(() -> new NotExistingSupplierId(skuWithSupplierIdDTO.getSupplier()));
 
         return skuMapper.toSkuDTO(skuRepository.save(skuEntity));
     }
@@ -34,7 +34,7 @@ public class SkuService {
     public SkuDTO update(UUID id, SkuWithSupplierIdDTO skuWithSupplierIdDTO) {
         Sku existingSku = skuRepository.findById(id).orElseThrow();
         Supplier supplier = supplierRepository.findById(skuWithSupplierIdDTO.getSupplier()).
-                orElseThrow(() -> new NotExistingSupplierId("Supplier not found with id: " + skuWithSupplierIdDTO.getSupplier()));
+                orElseThrow(() -> new NotExistingSupplierId(skuWithSupplierIdDTO.getSupplier()));
         skuMapper.updateSkuFromDTO(existingSku, skuWithSupplierIdDTO);
         existingSku.setSupplier(supplier);
 
