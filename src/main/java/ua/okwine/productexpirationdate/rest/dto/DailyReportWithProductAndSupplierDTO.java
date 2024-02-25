@@ -8,10 +8,10 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class DailyReportWithProductDTO {
+public class DailyReportWithProductAndSupplierDTO {
 
     private UUID id;
-    private ProductDTO product;
+    private ProductWithSupplierDTO product;
     private double quantity;
     private LocalDate created;
     private String comment;

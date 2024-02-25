@@ -7,7 +7,7 @@ import ua.okwine.productexpirationdate.exceptions.NotExistingProductException;
 import ua.okwine.productexpirationdate.repository.DailyReportRepository;
 import ua.okwine.productexpirationdate.repository.ProductRepository;
 import ua.okwine.productexpirationdate.rest.dto.DailyReportDTO;
-import ua.okwine.productexpirationdate.rest.dto.DailyReportWithProductDTO;
+import ua.okwine.productexpirationdate.rest.dto.DailyReportWithProductAndSupplierDTO;
 import ua.okwine.productexpirationdate.rest.dto.ProductWithSupplierDTO;
 import ua.okwine.productexpirationdate.rest.dto.mapper.DailyReportMapper;
 import ua.okwine.productexpirationdate.rest.dto.mapper.ProductMapper;
@@ -43,7 +43,7 @@ public class ReportService {
     }
 
     @Transactional
-    public DailyReportWithProductDTO saveDailyReport(DailyReportDTO dailyReport) {
+    public DailyReportWithProductAndSupplierDTO saveDailyReport(DailyReportDTO dailyReport) {
         var dailyReportEntity = dailyReportMapper.toDailyReport(dailyReport);
 
         dailyReportEntity.setProduct(
@@ -52,6 +52,6 @@ public class ReportService {
         );
         dailyReportEntity.getProduct().setReported(true);
 
-        return dailyReportMapper.toDailyReportWithProductDTO(dailyReportRepository.save(dailyReportEntity));
+        return dailyReportMapper.toDailyReportWithProductAndSupplierDTO(dailyReportRepository.save(dailyReportEntity));
     }
 }

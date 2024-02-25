@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.okwine.productexpirationdate.rest.dto.DailyReportDTO;
-import ua.okwine.productexpirationdate.rest.dto.DailyReportWithProductDTO;
+import ua.okwine.productexpirationdate.rest.dto.DailyReportWithProductAndSupplierDTO;
 import ua.okwine.productexpirationdate.rest.dto.report.ReportInfoDTO;
 import ua.okwine.productexpirationdate.service.ReportService;
 
@@ -24,7 +24,7 @@ public class ReportController {
     }
 
     @PostMapping("/daily")
-    public DailyReportWithProductDTO saveDailyReport(@RequestBody DailyReportDTO dailyReport) {
+    public DailyReportWithProductAndSupplierDTO saveDailyReport(@RequestBody DailyReportDTO dailyReport) {
         return reportService.saveDailyReport(dailyReport);
     }
 }

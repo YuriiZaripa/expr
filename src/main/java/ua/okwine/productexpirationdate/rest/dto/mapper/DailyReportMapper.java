@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ua.okwine.productexpirationdate.entity.DailyReport;
 import ua.okwine.productexpirationdate.rest.dto.DailyReportDTO;
-import ua.okwine.productexpirationdate.rest.dto.DailyReportWithProductDTO;
+import ua.okwine.productexpirationdate.rest.dto.DailyReportWithProductAndSupplierDTO;
 
 @Mapper(componentModel = "spring", uses = {ProductMapper.class})
 public interface DailyReportMapper {
@@ -13,5 +13,5 @@ public interface DailyReportMapper {
     @Mapping(target = "product", ignore = true)
     DailyReport toDailyReport(DailyReportDTO dailyReport);
 
-    DailyReportWithProductDTO toDailyReportWithProductDTO(DailyReport dailyReport);
+    DailyReportWithProductAndSupplierDTO toDailyReportWithProductAndSupplierDTO(DailyReport dailyReport);
 }
