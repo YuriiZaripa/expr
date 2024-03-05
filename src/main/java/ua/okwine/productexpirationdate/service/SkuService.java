@@ -33,12 +33,12 @@ public class SkuService {
     }
 
     public SkuDTO update(UUID id, SkuWithSupplierIdDTO skuWithSupplierIdDTO) {
-        Sku existingSku = skuRepository.findById(id).orElseThrow();
+        Sku sku = skuRepository.findById(id).orElseThrow();
         Supplier supplier = supplierRepository.findById(skuWithSupplierIdDTO.getSupplier()).
                 orElseThrow(() -> new NotExistedSupplierId("Supplier not found with id: " + skuWithSupplierIdDTO.getSupplier()));
-        skuMapper.updateSkuFromDTO(existingSku, skuWithSupplierIdDTO);
-        existingSku.setSupplier(supplier);
-        Sku updatedSku = skuRepository.save(existingSku);
+        skuMapper.updateSkuFromDTO(sku, skuWithSupplierIdDTO);
+        sku.setSupplier(supplier);
+        Sku updatedSku = skuRepository.save(sku);
 
         return skuMapper.toSkuDTO(updatedSku);
     }
